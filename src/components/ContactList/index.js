@@ -9,7 +9,11 @@ import Card from "../Card"
  * @example <ContactList />
  * @exports ContactList
  */
-function ContactList(contacts) {
+function ContactList() {
+    contacts = [
+        {name: "John Doe", phone: "7746586", imaga: "jojo.jpg"},
+        {name: "John Doe", phone: "6926586", imaga: "joje.jpg"},
+    ]
     return (
         <View>
             {contacts.map((contact, index) => (
