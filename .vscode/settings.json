@@ -1,0 +1,9 @@
+{
+    "cmake.sourceDirectory": "C:/Users/Halli/Desktop/T-488-MAPP/contactor/node_modules/react-native/ReactAndroid/src/main/jni/react/hermes/reactexecutor",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.alwaysShowStatus": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-import react from "react"
 
 export const shadows = StyleSheet.create({
     smallShadow: {
