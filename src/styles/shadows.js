@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native"
+import {StyleSheet} from "react-native"
 import react from "react"
 
 export const shadows = StyleSheet.create({
-    smallShadow: {
+    smallTop: {
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -18,7 +18,7 @@ export const shadows = StyleSheet.create({
         },
         shadowOpacity: 0.25,
     },
-    mediumShadow: {
+    mediumUnder: {
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

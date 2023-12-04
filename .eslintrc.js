@@ -25,8 +25,9 @@ module.exports = {
         indent: ["error", 4],
         quotes: ["error", "double"],
         "comma-dangle": ["error", "always-multiline"],
-        "spaced-comment": ["error", "always", { markers: ["/"] }],
+        "spaced-comment": ["error", "always", {markers: ["/"]}],
         "react/prop-types": ["off"],
         "space-before-function-paren": ["error", "never"],
+        "valid-jsdoc": "off",
     },
 }
