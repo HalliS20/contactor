@@ -33,7 +33,6 @@ function Card({info}) {
             ]}
         >
             <Text> {cardInfo.name}</Text>
-            <Text> {cardInfo.phone}</Text>
         </Pressable>
     )
 }
