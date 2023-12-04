@@ -1,22 +1,22 @@
 import React from "react"
-import { Controller, useForm } from "react-hook-form"
-import { ScrollView, Text, View, TextInput, Button } from "react-native"
+import {Button, TextInput, View} from "react-native"
+import {Controller, useForm} from "react-hook-form"
 import styles from "./styles"
 
 /**
  *
- * @return {YourForm}
+ * @returns  {JSX.Element}
  */
-function YourForm() {
-    const { control, handleSubmit } = useForm()
+function Form() {
+    const {control, handleSubmit} = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => console.log("Submit pressed", data)
 
     return (
         <View style={styles.container}>
             <Controller
                 control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({field: {onChange, onBlur, value}}) => (
                     <TextInput
                         style={styles.input}
                         onBlur={onBlur}
@@ -25,13 +25,6 @@ function YourForm() {
                     />
                 )}
                 name="email"
-                rules={{
-                    required: "You must enter your email",
-                    pattern: {
-                        value: /^\S+@\S+$/i,
-                        message: "Enter a valid email address",
-                    },
-                }}
                 defaultValue=""
             />
             <Button title="Submit" onPress={handleSubmit(onSubmit)} />
@@ -39,4 +32,4 @@ function YourForm() {
     )
 }
 
-export default YourForm
+export default Form
