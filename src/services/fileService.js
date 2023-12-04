@@ -1,4 +1,5 @@
 import * as FileSystem from 'expo-file-system';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 const contactDirectory = `${FileSystem.documentDirectory}contacts/`;
@@ -41,25 +42,10 @@ export const removeContact = async fileName => {
 }
 
 
-export const addContact = async (fileName, content) => {
+export const addContact = async (name, content) => {
     "this is a docstring, or is it?"
+    const uuid = uuidv4();
+    const fileName = `${name}-${uuid}.json`;
     await FileSystem.writeAsStringAsync(`${contactDirectory}${fileName}`, content);
 }
 
-function createUserFile(name, phoneNumber, photoUri) {
-    const uuid = uuidv4();
-    const fileName = `${name}-${uuid}.json`;
-    const userData = {
-        name: name,
-        phoneNumber: phoneNumber,
-        photo: photoUri
-    };
-
-    FileSystem.writeAsStringAsync(FileSystem.documentDirectory + fileName, JSON.stringify(userData))
-        .then(() => {
-            console.log(`User file created: ${fileName}`);
-        })
-        .catch(error => {
-            console.error('Error creating user file:', error);
-        });
-}

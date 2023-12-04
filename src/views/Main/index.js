@@ -1,5 +1,6 @@
 import React from "react"
 import { ScrollView, Text, View } from "react-native"
+import ContactList from "../../components/ContactList";
 import Dummy from "../../dummies/dummyData";
 
 
@@ -9,7 +10,7 @@ const Main = ({ navigation: { navigate } }) => {
         <View>
             <Text>Contactor</Text>
             <ScrollView>
-                <Dummy />
+                < Dummy/>
               
             </ScrollView>
         </View>

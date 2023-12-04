@@ -1,6 +1,7 @@
-import  React, { useState } from "react"
+import  React, { useState, useEffect } from "react"
 import { ScrollView, Text, View } from "react-native"
-import { addContact, getAllContacts, getOneContract, removeContact } from "../services/fileService";
+import { addContact, getAllContacts, getOneContract, removeContact,cleanDirectory } from "../services/fileService";
+import ContactList from "../components/ContactList"
 
 
 
@@ -31,24 +32,30 @@ const userData4 = {
 
 }
 
-const Dummy = () => {
-    const[contactInfo, setContacts] = useState('');
+const Dummy = () => { 
+    const [contacts, setContacts] = useState([]);
+    useEffect(() => {
         addContact(userData.name, JSON.stringify(userData));
         addContact(userData2.name, JSON.stringify(userData2));
         addContact(userData3.name, JSON.stringify(userData3));
         addContact(userData4.name, JSON.stringify(userData4));
+        
 
         getAllContacts().then(contacts => {
-            setContacts(contacts)
-            
-        })
+            const contactsObjects = contacts.map(contact => JSON.parse(contact));
+            setContacts(contactsObjects);
+            console.log("This is the contact info:..",contactsObjects)
+        });
+    }, []);
+
+
     
 
         
         return (
             <View>
                 <Text> Hollo Welt </Text>
-                    <Text> {contactInfo} </Text>
+                    <ContactList contacts={contacts} />
                     
 
             </View>
