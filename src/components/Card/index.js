@@ -2,6 +2,8 @@ import {Text, Pressable} from "react-native"
 import React, {useEffect, useState} from "react"
 import {shadows} from "../../styles/shadows"
 import styles from "./styles"
+import {useNavigation} from "@react-navigation/native"
+import ContactView from "../../views/ContactView"
 
 /**
  * @desc Card component
@@ -14,6 +16,7 @@ import styles from "./styles"
  */
 function Card({info}) {
     const [cardInfo, setCardInfo] = useState(info)
+    const navigation = useNavigation()
 
     useEffect(() => {
         setCardInfo(info)
@@ -22,7 +25,7 @@ function Card({info}) {
     return (
         <Pressable
             onPress={() => {
-                console.log(info.fileName)
+                navigation.navigate("ContactView", {contact: cardInfo})
             }}
             style={({pressed}) => [
                 {opacity: pressed ? 0.5 : 1},
