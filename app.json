@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "715b627b-7d69-4550-82c7-0789a164bd4c"
+      }
+    },
+    "owner": "hallis20"
   }
 }
