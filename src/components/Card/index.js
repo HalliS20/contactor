@@ -21,10 +21,12 @@ function Card({info}) {
 
     return (
         <Pressable
-            style={[
-                ({pressed}) => ({opacity: pressed ? 0.5 : 1}),
+            onPress={() => {
+                console.log("Pressed card")
+            }}
+            style={({pressed}) => [
+                {opacity: pressed ? 0.5 : 1},
                 styles.innerContainer,
-                shadows.smallTop,
             ]}
         >
             <Text> {cardInfo.name}</Text>
