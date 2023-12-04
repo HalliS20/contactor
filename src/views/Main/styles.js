@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native"
-import { deviceHeight, deviceWidth } from "../../styles/deviceWidth"
+import {StyleSheet} from "react-native"
+import {deviceHeight, deviceWidth} from "../../styles/sizes"
 
 export default StyleSheet.create({
     main: {
@@ -21,7 +21,5 @@ export default StyleSheet.create({
         alignItems: "center",
         textAlign: "center",
         marginTop: "5%",
-        // color: colors.white,
-        // marginTop: metrics.baseMargin,
     },
 })

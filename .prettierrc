@@ -4,5 +4,8 @@
     "arrowParens": "always",
     "spaceBeforeFunctionParent": true,
     "trailingComma": "all",
-    "bracketSpacing": true
+    "bracketSpacing": false,
+    "singleQuote": false,
+    "jsxSingleQuote": false,
+    "printWidth": 80
 }
