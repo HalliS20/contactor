@@ -22,7 +22,7 @@ function Card({info}) {
     return (
         <Pressable
             onPress={() => {
-                console.log("Pressed card")
+                console.log(info.fileName)
             }}
             style={({pressed}) => [
                 {opacity: pressed ? 0.5 : 1},
