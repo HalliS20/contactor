@@ -9,7 +9,6 @@ function Routes() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                screenOptions={{ headerShown: false }}
                 initialRouteName="Main"
             >
                 <Stack.Screen name="Main" component={Main} />
