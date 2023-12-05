@@ -49,7 +49,7 @@ function ContactList({contacts, refresh, setRefresh}) {
                     <Text style={styles.title}>Contactor</Text>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate("ContactForm")
+                            navigation.navigate("Contact Form")
                         }}
                         style={({pressed}) => [
                             {opacity: pressed ? 0.5 : 1},

@@ -36,7 +36,7 @@ function Routes() {
                     options={screenOptions}
                 />
                 <Stack.Screen
-                    name="New Contact"
+                    name="Contact Form"
                     component={ContactForm}
                     options={screenOptions}
                 />

@@ -40,7 +40,7 @@ function ContactView({route}) {
                 <Pressable
                     style={styles.buttonStyle}
                     onPress={() =>
-                        navigation.navigate("New Contact", {contact})
+                        navigation.navigate("Contact Form", {contact})
                     }
                 >
                     <Text>Edit me?</Text>
