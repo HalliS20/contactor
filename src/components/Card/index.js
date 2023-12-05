@@ -18,10 +18,19 @@ import ContactView from "../../views/ContactView"
 function Card({info}) {
     const [cardInfo, setCardInfo] = useState(info)
     const navigation = useNavigation()
+    const [imageSource, setImageSource] = useState(
+        info.image
+            ? {uri: info.image}
+            : require("../../resources/default-avatar.png"),
+    )
 
     useEffect(() => {
         setCardInfo(info)
     }, [info])
+
+    const handleError = () => {
+        setImageSource(require("../../resources/default-avatar.png"))
+    }
 
     return (
         <Pressable
@@ -37,7 +46,8 @@ function Card({info}) {
                 <View style={styles.photoView}>
                     <Image
                         style={styles.photo}
-                        source={{uri: cardInfo.image}}
+                        source={imageSource}
+                        onError={handleError}
                     />
                 </View>
             )}
