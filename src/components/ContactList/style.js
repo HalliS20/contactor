@@ -68,6 +68,7 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         ...shadows.smallUnder,
     },
+    spinner: {marginTop: 100},
 })
 
 export default styles

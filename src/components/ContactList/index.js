@@ -143,7 +143,9 @@ function ContactList({contacts}) {
                     }}
                 >
                     {isLoading ? (
-                        <Spinner />
+                        <View style={styles.spinner}>
+                            <Spinner />
+                        </View>
                     ) : (
                         <Pressable
                             style={({pressed}) => [
