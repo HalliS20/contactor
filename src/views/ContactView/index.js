@@ -23,7 +23,7 @@ function ContactView({route}) {
 
     return (
         <View>
-            {contact.image && imageFound && (
+            {contact.image && (
                 <Image
                     style={{width: deviceWidth * 1, height: 100}}
                     source={imageSource}
