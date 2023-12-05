@@ -4,7 +4,6 @@ import Card from "../Card"
 import styles from "./style"
 import { addContact, getAllContacts, getOneContract, removeContact, createUserFile, cleanDirectory } from "../../services/fileService";
 import { useFocusEffect } from '@react-navigation/native';
-import importContacts from "../importContacts";
 import * as Contacts from 'expo-contacts';
 
 /**
@@ -31,24 +30,40 @@ function ContactList({contacts}) {
         }, [])
     );
     const importContacts = async () => {
-        const { status } = await Contacts.requestPermissionsAsync();
-        if (status === 'granted') {
-            const { data } = await Contacts.getContactsAsync({
-                
-                fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
-                
-            });
-
-            if (data.length > 0) {
-                data.forEach(async ({ name, phoneNumbers, image }) => {
-                    const contact = {
-                        name: name,
-                        phoneNumber: phoneNumbers[0]?.number, // Assuming you want the first phone number
-                        image: image?.uri, // Assuming the image object has a uri property
-                    };
-                    await addContact(contact);
+        try {
+            const { status } = await Contacts.requestPermissionsAsync();
+            if (status === 'granted') {
+                const { data } = await Contacts.getContactsAsync({
+                    fields: [Contacts.Fields.FirstName, Contacts.Fields.LastName, Contacts.Fields.PhoneNumbers],
                 });
+    
+                if (data.length > 0) {
+                    await Promise.all(data.map(async ({ firstName, lastName, phoneNumbers }) => {
+                        let name = firstName;
+                        if (name === undefined) {
+                            name = "Unknown"
+                        }
+                        if(lastName !== undefined){
+                            name = name + " " + lastName;
+                        }
+                        let phone = phoneNumbers && phoneNumbers[0] ? phoneNumbers[0].digits : null
+                        if (phone === undefined) {
+                            phone = 112
+                        }
+                        const contactInfo = {
+                            name: name,
+                            phone: phone,
+                            image: "https://www.nbmchealth.com/wp-content/uploads/2018/05/765-default-avatar-300x300.png",
+                        };
+                        console.log("This is importContacts Function:..",contactInfo)
+                        await addContact(contactInfo);
+                    }));
+                    fetchContacts();
+                }
+
             }
+        } catch (error) {
+            console.error('An error occurred while importing contacts:', error);
         }
     };
 
