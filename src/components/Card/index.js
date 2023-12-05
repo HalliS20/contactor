@@ -12,6 +12,7 @@ import ContactView from "../../views/ContactView"
  * @param {string} info.description - description of card
  * @param {string} info.phonenumber - phone number of card
  * @param {string} info.photo - photo of card
+ * @param {string} info.filename - email of card
  * @return {JSX} - Card component
  */
 function Card({info}) {

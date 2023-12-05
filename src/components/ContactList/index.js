@@ -1,8 +1,10 @@
 import {View, Text, Pressable} from "react-native"
-import React,{ useState, useEffect } from "react"
+import React,{ useState, useEffect, useCallback } from "react"
 import Card from "../Card"
 import styles from "./style"
 import { addContact, getAllContacts, getOneContract, removeContact, createUserFile, cleanDirectory } from "../../services/fileService";
+import { useFocusEffect } from '@react-navigation/native';
+
 
 /**
  * @desc This is the contact list component
@@ -15,11 +17,22 @@ import { addContact, getAllContacts, getOneContract, removeContact, createUserFi
 
 
 function ContactList({contacts}) {
+    const [contactList, setContactList] = useState(contacts)
     console.log("This is ContactList Function:..",contacts)
+    const fetchContacts = async () => {
+        const fetchedContacts = await getAllContacts();
+        setContactList(fetchedContacts);
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchContacts();
+        }, [])
+    );
 
     return (
         <View style={styles.container}>
-            {contacts.map((contact, index) => (
+            {contactList.map((contact, index) => (
                 <Card key={index} info={contact} />
             ))}
             <Pressable
