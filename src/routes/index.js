@@ -21,10 +21,16 @@ function Routes() {
             fontWeight: "bold",
         },
     }
+    const stackOptions = {
+        headerShown: false,
+    }
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Contactor">
+            <Stack.Navigator
+                initialRouteName="Contactor"
+                screenOptions={stackOptions}
+            >
                 <Stack.Screen
                     name="Contactor"
                     component={Main}

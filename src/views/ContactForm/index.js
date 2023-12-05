@@ -8,6 +8,7 @@ import {
     Text,
     Image,
     Pressable,
+    SafeAreaView,
 } from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {addContact, removeContact} from "../../services/fileService"
@@ -54,7 +55,30 @@ function ContactForm({route}) {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Pressable
+                    style={({pressed}) => [
+                        {opacity: pressed ? 0.5 : 1},
+                        styles.backButton,
+                    ]}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Text style={styles.backBText}>Back</Text>
+                </Pressable>
+                {contact && (
+                    <Pressable
+                        style={styles.deleteButton}
+                        onPress={() => {
+                            removeContact(contact.fileName)
+                            navigation.navigate("Contactor")
+                        }}
+                    >
+                        <Text style={styles.delBText}>Delete</Text>
+                    </Pressable>
+                )}
+            </View>
+
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
@@ -147,7 +171,7 @@ function ContactForm({route}) {
                 takePhoto={() => takePhoto()}
                 selectFromCameraRoll={() => selectFromCameraRoll()}
             />
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -1,4 +1,11 @@
-import {View, Text, Pressable, TextInput, ScrollView} from "react-native"
+import {
+    View,
+    Text,
+    Pressable,
+    TextInput,
+    ScrollView,
+    SafeAreaView,
+} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import React, {useState, useEffect} from "react"
 import Card from "../Card"
@@ -42,7 +49,7 @@ function ContactList({contacts, refresh, setRefresh}) {
     }, [refresh])
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {/* /////////// Header part /////////  */}
             <View style={styles.header}>
                 <View style={styles.topTitle}>
@@ -106,7 +113,7 @@ function ContactList({contacts, refresh, setRefresh}) {
                     )}
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {View, Text, Button, Linking, Image, Pressable} from "react-native"
+import {View, Text, Linking, Image, Pressable, SafeAreaView} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {removeContact} from "../../services/fileService"
 import {deviceWidth} from "../../styles/sizes"
@@ -17,7 +17,26 @@ function ContactView({route}) {
         console.log(contact.image)
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Pressable
+                    style={({pressed}) => [
+                        {opacity: pressed ? 0.5 : 1},
+                        styles.backButton,
+                    ]}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Text style={styles.backBText}>Back</Text>
+                </Pressable>
+                <Pressable
+                    style={styles.editButton}
+                    onPress={() =>
+                        navigation.navigate("Contact Form", {contact})
+                    }
+                >
+                    <Text style={styles.edBText}>Edit</Text>
+                </Pressable>
+            </View>
             {contact.image && imageFound ? (
                 <Image
                     style={{width: deviceWidth * 1, height: 200}}
@@ -33,35 +52,26 @@ function ContactView({route}) {
 
             <Text style={styles.textStyle}>{contact.name}</Text>
             <Text style={styles.textStyle}>{contact.phone}</Text>
-            <Pressable style={styles.buttonStyleCall} onPress={handleCall}>
-                <Text style={styles.textStyleCall}>Call me</Text>
-            </Pressable>
-            <View style={styles.buttonRow}>
-                <Pressable
-                    style={styles.buttonStyle}
-                    onPress={() =>
-                        navigation.navigate("Contact Form", {contact})
-                    }
-                >
-                    <Text>Edit me?</Text>
-                </Pressable>
-                <Pressable
-                    style={styles.buttonStyleDelete}
-                    onPress={() => {
-                        removeContact(contact.fileName)
-                        navigation.goBack()
-                    }}
-                >
-                    <Text style={styles.textStyleDelete}>Delete Me!!!</Text>
-                </Pressable>
-            </View>
+
             <Pressable
-                style={styles.buttonStyleBack}
-                onPress={() => navigation.goBack()}
+                style={({pressed}) => [
+                    {opacity: pressed ? 0.5 : 1},
+                    styles.callButton,
+                ]}
+                onPress={handleCall}
             >
-                <Text>Back to Main</Text>
+                <Text style={styles.clBText}>Call me</Text>
             </Pressable>
-        </View>
+            {/* <Pressable
+                style={styles.buttonStyleDelete}
+                onPress={() => {
+                    removeContact(contact.fileName)
+                    navigation.goBack()
+                }}
+            >
+                <Text style={styles.textStyleDelete}>Delete Me!!!</Text>
+            </Pressable> */}
+        </SafeAreaView>
     )
 }
 

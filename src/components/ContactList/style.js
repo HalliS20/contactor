@@ -52,10 +52,10 @@ export const styles = StyleSheet.create({
     },
     header: {
         alignSelf: "stretch",
-        width: "100%",
+        width: deviceWidth,
     },
     list: {
-        height: deviceHeight * 0.78,
+        height: deviceHeight * 0.85,
     },
     importButton: {
         width: deviceWidth,
