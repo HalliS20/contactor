@@ -12,14 +12,6 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    searchBar: {
-        ...buttonStyle.fullWidth,
-        textAlign: "center",
-        borderRadius: 0,
-        height: deviceHeight * 0.04,
-        backgroundColor: "lightgrey",
-        borderWidth: 0,
-    },
 
     topTitle: {
         fontSize: 20,
