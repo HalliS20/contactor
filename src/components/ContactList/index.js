@@ -1,8 +1,15 @@
 import {View, Text, Pressable} from "react-native"
-import React from "react"
+import React, {useState, useEffect} from "react"
 import Card from "../Card"
 import styles from "./style"
-import {useNavigation} from "@react-navigation/native"
+import {
+    addContact,
+    getAllContacts,
+    getOneContract,
+    removeContact,
+    createUserFile,
+    cleanDirectory,
+} from "../../services/fileService"
 
 /**
  * @desc This is the contact list component
@@ -12,7 +19,8 @@ import {useNavigation} from "@react-navigation/native"
  * @exports ContactList
  */
 function ContactList({contacts}) {
-    const {navigate} = useNavigation()
+    console.log("This is ContactList Function:..", contacts)
+
     return (
         <View style={styles.container}>
             {contacts.map((contact, index) => (

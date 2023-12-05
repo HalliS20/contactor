@@ -2,7 +2,7 @@ import React from "react"
 import {NavigationContainer} from "@react-navigation/native"
 import {createStackNavigator} from "@react-navigation/stack"
 import Main from "../views/Main"
-import CreateContact from "../views/CreateContact"
+import ContactView from "../views/ContactView"
 
 const Stack = createStackNavigator()
 /**
@@ -15,7 +15,7 @@ function Routes() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Main">
                 <Stack.Screen name="Main" component={Main} />
-                <Stack.Screen name="CreateContact" component={CreateContact} />
+                <Stack.Screen name="ContactView" component={ContactView} />
             </Stack.Navigator>
         </NavigationContainer>
     )
