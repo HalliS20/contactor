@@ -1,4 +1,4 @@
-import {Text, Pressable} from "react-native"
+import {Text, Pressable, Image, View} from "react-native"
 import React, {useEffect, useState} from "react"
 import {shadows} from "../../styles/shadows"
 import styles from "./styles"
@@ -10,18 +10,27 @@ import ContactView from "../../views/ContactView"
  * @param {object} info - info object
  * @param {string} info.name - title of card
  * @param {string} info.description - description of card
- * @param {string} info.phonenumber - phone number of card
+ * @param {string} info.phone - phone number of card
  * @param {string} info.photo - photo of card
- * @param {string} info.filename - email of card
+ * @param {string} info.filename - filename of card
  * @return {JSX} - Card component
  */
 function Card({info}) {
     const [cardInfo, setCardInfo] = useState(info)
     const navigation = useNavigation()
+    const [imageSource, setImageSource] = useState(
+        info.image
+            ? {uri: info.image}
+            : require("../../resources/default-avatar.png"),
+    )
 
     useEffect(() => {
         setCardInfo(info)
     }, [info])
+
+    const handleError = () => {
+        setImageSource(require("../../resources/default-avatar.png"))
+    }
 
     return (
         <Pressable
@@ -33,7 +42,16 @@ function Card({info}) {
                 styles.innerContainer,
             ]}
         >
-            <Text> {cardInfo.name}</Text>
+            {cardInfo.image && (
+                <View style={styles.photoView}>
+                    <Image
+                        style={styles.photo}
+                        source={imageSource}
+                        onError={handleError}
+                    />
+                </View>
+            )}
+            <Text style={styles.name}> {cardInfo.name}</Text>
         </Pressable>
     )
 }

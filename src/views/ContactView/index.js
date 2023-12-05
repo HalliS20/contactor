@@ -7,10 +7,18 @@ import {deviceWidth} from "../../styles/sizes"
 function ContactView({route}) {
     const {contact} = route.params
     const navigation = useNavigation()
-    const [imageFound, setImageFound] = useState(true)
+    const [imageSource, setImageSource] = useState(
+        contact.image
+            ? {uri: contact.image}
+            : require("../../resources/default-avatar.png"),
+    )
 
     const handleCall = () => {
         Linking.openURL(`tel:${contact.phone}`)
+    }
+
+    const handleError = () => {
+        setImageSource(require("../../resources/default-avatar.png"))
     }
 
     return (
@@ -18,8 +26,8 @@ function ContactView({route}) {
             {contact.image && imageFound && (
                 <Image
                     style={{width: deviceWidth * 1, height: 100}}
-                    source={{uri: contact.image}}
-                    onError={() => setImageFound(false)}
+                    source={imageSource}
+                    onError={handleError}
                 />
             )}
             {console.log(contact.image)}
