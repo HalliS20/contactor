@@ -5,6 +5,7 @@ import Card from "../Card"
 import styles from "./style"
 import {getAllContacts, addContact} from "../../services/fileService"
 import * as Contacts from "expo-contacts"
+import {buttonStyle} from "../../styles/buttons"
 
 /**
  * @desc This is the contact list component
@@ -106,10 +107,10 @@ function ContactList({contacts}) {
                 }}
                 style={({pressed}) => [
                     {opacity: pressed ? 0.5 : 1},
-                    styles.innerContainer,
+                    buttonStyle.mostWidth,
                 ]}
             >
-                <Text>Add Contact </Text>
+                <Text style={buttonStyle.text}>Add Contact </Text>
             </Pressable>
             <Button
                 title="importContacts"
