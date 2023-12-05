@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {View, Text, Button, Linking, Image} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {removeContact} from "../../services/fileService"
@@ -7,6 +7,7 @@ import {deviceWidth} from "../../styles/sizes"
 function ContactView({route}) {
     const {contact} = route.params
     const navigation = useNavigation()
+    const [imageFound, setImageFound] = useState(true)
 
     const handleCall = () => {
         Linking.openURL(`tel:${contact.phone}`)
@@ -14,10 +15,13 @@ function ContactView({route}) {
 
     return (
         <View>
-            <Image
-                style={{width: deviceWidth * 1, height: 100}}
-                source={{uri: contact.image}}
-            />
+            {contact.image && imageFound && (
+                <Image
+                    style={{width: deviceWidth * 1, height: 100}}
+                    source={{uri: contact.image}}
+                    onError={() => setImageFound(false)}
+                />
+            )}
             {console.log(contact.image)}
             <Text>Name: {contact.name}</Text>
             <Text>Phone: {contact.phone}</Text>
