@@ -20,6 +20,10 @@ function ContactView({route}) {
             >
                 Delete me
             </Text>
+            <Button
+                title="Edit Contact"
+                onPress={() => navigation.navigate("ContactForm", {contact})}
+            />
             <Button title="Back to Main" onPress={() => navigation.goBack()} />
         </View>
     )
