@@ -22,7 +22,7 @@ export const selectFromCameraRoll = async() => {
     });
 
     if (result.cancelled) { return ""; }
-    return result.uri;
+    return result.assets[0].uri;
 };
 
 export const takePhoto = async() => {
@@ -36,8 +36,7 @@ export const takePhoto = async() => {
         });
 
         if (result.canceled) { return ""; }
-        console.log("result uri: ", result.uri);
-        return result.uri;
+        return result.assets[0].uri;
     } catch (error) {
         console.error("Error taking photo: ", error);
         return "";

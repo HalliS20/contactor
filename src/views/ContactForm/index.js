@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {Controller, useForm} from "react-hook-form"
-import {View, TextInput, Button, TouchableOpacity, Text, Image} from "react-native"
+import {View, TextInput, Button, TouchableOpacity, Text, Image, Pressable} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {addContact, removeContact} from "../../services/fileService"
 import * as imageService from "../../services/imageService";
@@ -14,18 +14,23 @@ import AddModal from "../../components/AddModal"
 function ContactForm({route}) {
     const navigation = useNavigation()
     const {control, handleSubmit} = useForm()
-    const {photo, setPhoto} = useState("");    
+    const [photo, setPhoto] = useState("");   
     const contact = route.params ? route.params.contact : undefined
     // A boolean flag to indicate whether the modal to add an image is open or not
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const takePhoto = async() => {
         const photo = await imageService.takePhoto();
         console.log("photo", photo)
-        if (photo.length > 0) { setPhoto(photo); }
+        if (photo.length > 0) { 
+            setPhoto(photo);
+            setValue("image", photo);
+        }
     }
     const selectFromCameraRoll = async() => {
         const photo = await imageService.selectFromCameraRoll();
-        if (photo.length > 0) { setPhoto(photo); }
+        if (photo.length > 0) { 
+            setPhoto(photo);
+        }
     }
 
     const onSubmit = (content) => {
@@ -33,6 +38,9 @@ function ContactForm({route}) {
         if (contact) {
             console.log(contact, "is being removed")
             removeContact(contact.fileName)
+        }
+        if (photo.length > 0) {
+            content.image = photo;
         }
         addContact(content)
         navigation.navigate("Main")
@@ -75,29 +83,41 @@ function ContactForm({route}) {
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                        style={styles.input}
-                        onBlur={onBlur}
-                        onChangeText={(value) => onChange(value)}
-                        value={value}
-                        placeholder={
-                            contact && contact.image ? contact.image : "photo"
-                        }
-                    />
+                    photo ? (
+                        console.log("Value: ", value),
+                        <View>
+                            <Image source={{ uri: photo }} style={{ width: 100, height: 100 }} />
+                            <Pressable
+                                style={{ position: "absolute", right: 0, top: 0 }}
+                                onPress={() => {
+                                    setPhoto("");
+                                    onChange(""); // Clear the value of the form field "image"
+                                }}
+                            >
+                                <Image source={require("../../resources/images/x.jpg")} style={{ width: 20, height: 20 }} />
+                            </Pressable>
+                        </View>
+                    ) : (
+                        <View>
+                            <TextInput
+                                style={styles.input}
+                                onBlur={onBlur}
+                                onChangeText={(value) => onChange(value)}
+                                value={value}
+                                placeholder={
+                                    contact && contact.image ? contact.image : "photo"
+                                }
+                            />
+                            <TouchableOpacity onPress={() => setIsAddModalOpen(true)}>
+                                <Text>Add Image</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
                 )}
                 name="image"
                 defaultValue={contact && contact.image ? contact.image : ""}
             />
             <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-            <TouchableOpacity onPress={() => setIsAddModalOpen(true)}>
-                <Text>Add Image</Text>
-            </TouchableOpacity>
-            {photo && (
-                <Image
-                    style={{width: 50, height: 50}}
-                    source={{uri: photo}}
-                />
-            )}
             <AddModal
                 isOpen={isAddModalOpen}
                 closeModal={() => setIsAddModalOpen(false)}

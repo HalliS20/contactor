@@ -14,11 +14,17 @@ const AddModal = ({
         isOpen={isOpen}
         closeModal={closeModal}>
         <TouchableOpacity
-            onPress={() => takePhoto()}>
+            onPress={async() => {
+                await takePhoto();
+                closeModal();
+            }}>
             <Entypo style={styles.icon} name="camera" />
         </TouchableOpacity>
         <TouchableOpacity
-            onPress={() => selectFromCameraRoll()}>
+            onPress={async() => {
+                await selectFromCameraRoll();
+                closeModal();
+            }}>
             <Entypo style={styles.icon} name="image" />
         </TouchableOpacity>
     </Modal>
