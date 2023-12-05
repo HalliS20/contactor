@@ -29,7 +29,7 @@ function Card({info, refresh}) {
     return (
         <Pressable
             onPress={() => {
-                navigation.navigate("ContactView", {contact: cardInfo})
+                navigation.navigate("Contact", {contact: cardInfo})
             }}
             style={({pressed}) => [
                 {opacity: pressed ? 0.5 : 1},

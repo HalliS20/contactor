@@ -1,11 +1,4 @@
-import {
-    View,
-    Text,
-    Pressable,
-    Button,
-    TextInput,
-    ScrollView,
-} from "react-native"
+import {View, Text, Pressable, TextInput, ScrollView} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import React, {useState, useEffect} from "react"
 import Card from "../Card"
@@ -94,7 +87,9 @@ function ContactList({contacts, refresh, setRefresh}) {
                 >
                     {/* ////// Displays spinner if loading otherwise import Button /////// */}
                     {isLoading ? (
-                        <Spinner />
+                        <View style={styles.spinner}>
+                            <Spinner />
+                        </View>
                     ) : (
                         <Pressable
                             style={({pressed}) => [

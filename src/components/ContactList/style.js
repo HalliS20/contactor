@@ -5,7 +5,6 @@ import {shadows} from "../../styles/shadows"
 import {white, black, navajoWhite, offWhite} from "../../styles/colors"
 
 export const styles = StyleSheet.create({
-    container: {},
     innerContainer: {
         width: 300,
         height: 100,
@@ -69,6 +68,7 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         ...shadows.smallUnder,
     },
+    spinner: {marginTop: 100},
 })
 
 export default styles
