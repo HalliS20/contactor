@@ -10,6 +10,7 @@ import styles from "./styles"
  * @param {string} info.description - description of card
  * @param {string} info.phonenumber - phone number of card
  * @param {string} info.photo - photo of card
+ * @param {string} info.filename - email of card
  * @return {JSX} - Card component
  */
 function Card({info}) {
@@ -31,6 +32,7 @@ function Card({info}) {
         >
             <Text> {cardInfo.name}</Text>
             <Text> {cardInfo.phone}</Text>
+            <Text> {cardInfo.filename}</Text>
         </Pressable>
     )
 }

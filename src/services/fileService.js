@@ -27,15 +27,27 @@ const setupDirectory = async () => {
     }
 }
 
-export const getOneContract = async fileName => {
-    return await FileSystem.readAsStringAsync(`${contactDirectory}${fileName}`)
+export const getOneContact = async (filename, filepath) => {
+    const fileInfo = await FileSystem.readAsStringAsync(filename);
+    const contact = JSON.parse(fileInfo);
+    return { contact, filepath };
 }
 
 export const getAllContacts = async () => {
     await setupDirectory();
     const dirInfo = await FileSystem.readDirectoryAsync(contactDirectory);
-    return await Promise.all(dirInfo.map(getOneContract));
+    return await Promise.all(dirInfo.map(filename => getOneContact(filename, contactDirectory)));
 }
+
+// export const getOneContact = async fileName => {
+//     return await FileSystem.readAsStringAsync(`${contactDirectory}${fileName}`)
+// }
+
+// export const getAllContacts = async () => {
+//     await setupDirectory();
+//     const dirInfo = await FileSystem.readDirectoryAsync(contactDirectory);
+//     return await Promise.all(dirInfo.map(getOneContract));
+// }
 
 export const removeContact = async fileName => {
     await FileSystem.deleteAsync(`${contactDirectory}${fileName}`);
