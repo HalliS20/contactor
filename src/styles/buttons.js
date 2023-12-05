@@ -21,7 +21,7 @@ export const buttonStyle = StyleSheet.create({
     },
 
     mostWidth: {
-        width: deviceWidth * 0.97,
+        width: deviceWidth * 1,
         ...Basic,
     },
 
