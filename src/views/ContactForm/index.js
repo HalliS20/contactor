@@ -13,7 +13,7 @@ import AddModal from "../../components/AddModal"
  */
 function ContactForm({route}) {
     const navigation = useNavigation()
-    const {control, handleSubmit} = useForm()
+    const { control, handleSubmit, setValue } = useForm()
     const [photo, setPhoto] = useState("");   
     const contact = route.params ? route.params.contact : undefined
     // A boolean flag to indicate whether the modal to add an image is open or not
