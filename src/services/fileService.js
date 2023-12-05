@@ -50,12 +50,12 @@ export const removeContact = async (fileName) => {
     await FileSystem.deleteAsync(`${contactDirectory}${fileName}`)
 }
 
-export const addContact = async (name, content) => {
+export const addContact = async (content) => {
     "this is a docstring, or is it?"
     const uuid = uuidv4()
-    const fileName = `${name}-${uuid}.json`
+    const fileName = `${content.name}-${uuid}.json`
     await FileSystem.writeAsStringAsync(
         `${contactDirectory}${fileName}`,
-        content,
+        JSON.stringify(content),
     )
 }
