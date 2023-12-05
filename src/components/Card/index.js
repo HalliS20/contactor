@@ -15,22 +15,16 @@ import ContactView from "../../views/ContactView"
  * @param {string} info.filename - filename of card
  * @return {JSX} - Card component
  */
-function Card({info}) {
+function Card({info, refresh}) {
     const [cardInfo, setCardInfo] = useState(info)
     const navigation = useNavigation()
-    const [imageSource, setImageSource] = useState(
-        info.image
-            ? {uri: info.image}
-            : require("../../resources/default-avatar.png"),
-    )
+    const [imageFound, setImageFound] = useState(true)
 
     useEffect(() => {
-        setCardInfo(info)
-    }, [info])
-
-    const handleError = () => {
-        setImageSource(require("../../resources/default-avatar.png"))
-    }
+        if (refresh) {
+            setCardInfo(info)
+        }
+    }, [refresh])
 
     return (
         <Pressable
@@ -43,12 +37,18 @@ function Card({info}) {
             ]}
         >
             <View style={styles.photoView}>
-                <Image
-                    style={styles.photo}
-                    source={imageSource}
-                    onError={handleError}
-                    defaultSource={require("../../resources/default-avatar.png")}
-                />
+                {cardInfo.image && imageFound ? (
+                    <Image
+                        style={styles.photo}
+                        source={{uri: cardInfo.image}}
+                        onError={() => setImageFound(false)}
+                    />
+                ) : (
+                    <Image
+                        style={styles.photo}
+                        source={require("../../resources/default-avatar.png")}
+                    />
+                )}
             </View>
             <Text style={styles.name}> {cardInfo.name}</Text>
         </Pressable>

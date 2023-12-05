@@ -36,7 +36,7 @@ async function importContacts() {
                         const contactInfo = {
                             name: name,
                             phone: phone,
-                            image: "https://www.nbmchealth.com/wp-content/uploads/2018/05/765-default-avatar-300x300.png",
+                            image: "",
                         }
 
                         // setIsLoading(true)

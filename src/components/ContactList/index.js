@@ -22,33 +22,33 @@ import {set} from "react-hook-form"
  * @example <ContactList />
  * @exports ContactList
  */
-function ContactList({contacts}) {
+function ContactList({contacts, refresh, setRefresh}) {
     const navigation = useNavigation()
     const [contactList, setContactList] = useState(contacts)
     const [isLoading, setIsLoading] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
 
-    const fetchContacts = async () => {
+    //////////////// importing contacts ///////////////
+    const handleImportContacts = async () => {
         setIsLoading(true)
-        const fetchedContacts = await getAllContacts()
-        setContactList(fetchedContacts)
+        await importContacts().then(() => {
+            setRefresh(true)
+        })
         setIsLoading(false)
     }
+
+    /////////////// For refreshing /////////
     useEffect(() => {
         setContactList(contacts)
     }, [contacts])
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         fetchContacts()
-    //     }, []),
-    // )
 
-    const handleImportContacts = async () => {
-        setIsLoading(true)
-        await importContacts()
-        fetchContacts()
-        setIsLoading(false)
-    }
+    useEffect(() => {
+        if (refresh) {
+            setContactList(contacts)
+            setRefresh(!refresh) // Reset refresh state after refreshing the list
+        }
+    }, [refresh])
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -81,7 +81,7 @@ function ContactList({contacts}) {
                             .includes(searchTerm.toLowerCase()),
                     )
                     .map((contact, index) => (
-                        <Card key={index} info={contact} />
+                        <Card key={index} info={contact} refresh={refresh} />
                     ))}
                 <View
                     style={{

@@ -40,16 +40,17 @@ function ContactForm({route}) {
         }
     }
 
-    const onSubmit = (content) => {
-        console.log("Submit pressed", content)
+    const onSubmit = async (content) => {
         if (contact) {
-            removeContact(contact.fileName)
+            await removeContact(contact.fileName)
         }
         if (photo.length > 0) {
             content.image = photo
         }
-        addContact(content)
-        navigation.navigate("Main")
+        addContact(content).then(() => {
+            console.log("Submit pressed", content)
+            navigation.navigate("Main")
+        })
     }
 
     return (

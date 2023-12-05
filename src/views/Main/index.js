@@ -10,7 +10,9 @@ import {useFocusEffect} from "@react-navigation/native"
 
 const Main = ({navigation: {navigate}}) => {
     const [contacts, setContacts] = useState([])
-    useFocusEffect(() => {
+    const [refresh, setRefresh] = useState(false)
+
+    const fetchContacts = useCallback(() => {
         const clean = false // change to true to clean the directory
 
         if (clean === true) {
@@ -19,12 +21,19 @@ const Main = ({navigation: {navigate}}) => {
 
         getAllContacts().then((contacts) => {
             setContacts(contacts)
+            setRefresh(!refresh)
         })
-    })
+    }, [refresh])
+
+    useFocusEffect(fetchContacts)
 
     return (
         <View>
-            <ContactList contacts={contacts} />
+            <ContactList
+                contacts={contacts}
+                refresh={refresh}
+                setRefresh={setRefresh}
+            />
         </View>
     )
 }
