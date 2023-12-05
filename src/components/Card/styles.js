@@ -10,15 +10,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height: 60,
         margin: 1, // Adjust this value to change the width of the border
-        borderRadius: 5,
         paddingRight: 7,
-        margin: 4,
-        borderColor: "black",
-        borderWidth: 1,
         fontSize: 20,
         fontWeight: "bold",
-        width: deviceWidth * 0.97,
+        width: deviceWidth,
         alignItems: "center",
+        marginBottom: 2,
         ...shadows.smallUnder,
     },
     photo: {

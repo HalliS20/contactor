@@ -1,4 +1,11 @@
-import {View, Text, Pressable, Button, TextInput} from "react-native"
+import {
+    View,
+    Text,
+    Pressable,
+    Button,
+    TextInput,
+    ScrollView,
+} from "react-native"
 import {useNavigation, useFocusEffect} from "@react-navigation/native"
 import React, {useState, useCallback, useEffect} from "react"
 import Card from "../Card"
@@ -96,50 +103,63 @@ function ContactList({contacts}) {
 
     return (
         <View style={styles.container}>
-            <TextInput
-                style={styles.searchBar}
-                placeholder="Search..."
-                onChangeText={(text) => setSearchTerm(text)}
-                value={searchTerm}
-            />
-            {contactList
-                .filter((contact) =>
-                    contact.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
-                )
-                .map((contact, index) => (
-                    <Card key={index} info={contact} />
-                ))}
-            <Pressable
-                onPress={() => {
-                    navigation.navigate("ContactForm")
-                }}
-                style={({pressed}) => [
-                    {opacity: pressed ? 0.5 : 1},
-                    buttonStyle.mostWidth,
-                ]}
-            >
-                <Text style={buttonStyle.text}>Add Contact </Text>
-            </Pressable>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                {isLoading ? (
-                    <Spinner />
-                ) : (
-                    <Button
-                        title="importContacts"
+            <View style={styles.header}>
+                <View style={styles.topTitle}>
+                    <Text style={styles.title}>Contactor</Text>
+                    <Pressable
                         onPress={() => {
-                            importContacts()
+                            navigation.navigate("ContactForm")
                         }}
-                    />
-                )}
+                        style={({pressed}) => [
+                            {opacity: pressed ? 0.5 : 1},
+                            styles.button,
+                        ]}
+                    >
+                        <Text style={styles.buttonText}> + </Text>
+                    </Pressable>
+                </View>
+                <TextInput
+                    style={styles.searchBar}
+                    placeholder="Search..."
+                    onChangeText={(text) => setSearchTerm(text)}
+                    value={searchTerm}
+                />
             </View>
+            <ScrollView style={styles.list}>
+                {contactList
+                    .filter((contact) =>
+                        contact.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()),
+                    )
+                    .map((contact, index) => (
+                        <Card key={index} info={contact} />
+                    ))}
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    {isLoading ? (
+                        <Spinner />
+                    ) : (
+                        <Pressable
+                            style={({pressed}) => [
+                                {opacity: pressed ? 0.5 : 1},
+                                styles.importButton,
+                            ]}
+                            title="importContacts"
+                            onPress={() => {
+                                importContacts()
+                            }}
+                        >
+                            <Text>Import Contacts</Text>
+                        </Pressable>
+                    )}
+                </View>
+            </ScrollView>
         </View>
     )
 }
