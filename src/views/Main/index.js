@@ -1,21 +1,20 @@
 import React from "react"
-import {ScrollView, Text, View} from "react-native"
-import ContactList from "../../components/ContactList"
+import { ScrollView, Text, View } from "react-native"
+import ContactList from "../../components/ContactList";
+import Dummy from "../../dummies/dummyData";
 
-const Main = ({navigation: {navigate}}) => {
-    const contacts = [
-        {name: "John Doe", phone: "7746586", image: "jojo.jpg"},
-        {name: "Janius Does", phone: "6926586", image: "joje.jpg"},
-    ]
 
+
+const Main = ({ navigation: { navigate } }) => {
     return (
         <View>
             <Text>Contactor</Text>
             <ScrollView>
-                <ContactList contacts={contacts} />
+                < Dummy/>
+              
             </ScrollView>
         </View>
-    )
-}
+    );
+};
 
-export default Main
+export default Main;
