@@ -6,7 +6,6 @@ import {white, black, offWhite} from "../styles/colors"
 
 const Basic = {
     padding: 10,
-    margin: 10,
     borderRadius: 5,
     borderWidth: 1,
     justifyContent: "center",
