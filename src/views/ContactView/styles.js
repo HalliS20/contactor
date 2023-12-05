@@ -57,6 +57,12 @@ export const styles = StyleSheet.create({
         fontSize: 20,
     },
 
+    photo: {
+        margin: 5,
+        width: deviceWidth,
+        height: 200,
+    },
+
     container: {
         width: deviceWidth * 1,
         height: deviceHeight * 1,

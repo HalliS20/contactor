@@ -4,7 +4,6 @@ import {
     View,
     TextInput,
     Button,
-    TouchableOpacity,
     Text,
     Image,
     Pressable,
@@ -25,8 +24,12 @@ function ContactForm({route}) {
     const {control, handleSubmit, setValue} = useForm()
     const [photo, setPhoto] = useState("")
     const contact = route.params ? route.params.contact : undefined
-    // A boolean flag to indicate whether the modal to add an image is open or not
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false) // modal open/close
+    const [nameFocused, setNameFocus] = useState(false) // name input focus
+    const [phoneFocused, setPhoneFocus] = useState(false) // name input focus
+    const [imageFocused, setImageFocus] = useState(false) // name input focus
+
+    ////////// for taking photo and selecting from camera roll //////////
     const takePhoto = async () => {
         const photo = await imageService.takePhoto()
         if (photo.length > 0) {
@@ -41,6 +44,7 @@ function ContactForm({route}) {
         }
     }
 
+    //////// submitting form //////////
     const onSubmit = async (content) => {
         if (contact) {
             await removeContact(contact.fileName)
@@ -83,8 +87,12 @@ function ContactForm({route}) {
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
                     <TextInput
-                        style={styles.input}
-                        onBlur={onBlur}
+                        style={nameFocused ? styles.focusedInput : styles.input}
+                        onBlur={() => {
+                            onBlur()
+                            setNameFocus(false)
+                        }}
+                        onFocus={() => setNameFocus(true)}
                         onChangeText={(value) => onChange(value)}
                         value={value}
                         placeholder={
@@ -99,8 +107,14 @@ function ContactForm({route}) {
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
                     <TextInput
-                        style={styles.input}
-                        onBlur={onBlur}
+                        style={
+                            phoneFocused ? styles.focusedInput : styles.input
+                        }
+                        onBlur={() => {
+                            onBlur()
+                            setPhoneFocus(false)
+                        }}
+                        onFocus={() => setPhoneFocus(true)}
                         onChangeText={(value) => onChange(value)}
                         value={value}
                         placeholder={
@@ -120,7 +134,8 @@ function ContactForm({route}) {
                             <View>
                                 <Image
                                     source={{uri: photo}}
-                                    style={{width: 100, height: 100}}
+                                    style={styles.photo}
+                                    resizeMode="cover"
                                 />
                                 <Pressable
                                     style={{
@@ -143,8 +158,16 @@ function ContactForm({route}) {
                     ) : (
                         <View>
                             <TextInput
-                                style={styles.input}
-                                onBlur={onBlur}
+                                style={
+                                    imageFocused
+                                        ? styles.focusedInput
+                                        : styles.input
+                                }
+                                onBlur={() => {
+                                    onBlur()
+                                    setImageFocus(false)
+                                }}
+                                onFocus={() => setImageFocus(true)}
                                 onChangeText={(value) => onChange(value)}
                                 value={value}
                                 placeholder={
@@ -153,11 +176,15 @@ function ContactForm({route}) {
                                         : "photo"
                                 }
                             />
-                            <TouchableOpacity
+                            <Pressable
+                                style={({pressed}) => [
+                                    {opacity: pressed ? 0.5 : 1},
+                                    styles.addButton,
+                                ]}
                                 onPress={() => setIsAddModalOpen(true)}
                             >
-                                <Text>Add Image</Text>
-                            </TouchableOpacity>
+                                <Text style={styles.addBText}>Add Image</Text>
+                            </Pressable>
                         </View>
                     )
                 }

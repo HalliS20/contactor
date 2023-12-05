@@ -39,7 +39,7 @@ function ContactView({route}) {
             </View>
             {contact.image && imageFound ? (
                 <Image
-                    style={{width: deviceWidth * 1, height: 200}}
+                    style={styles.photo}
                     source={{uri: contact.image}}
                     onError={() => setImageFound(false)}
                 />

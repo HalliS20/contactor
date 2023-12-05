@@ -5,26 +5,28 @@ import {white, black, navajoWhite, offWhite} from "../../styles/colors"
 
 const styles = StyleSheet.create({
     innerContainer: {
+        width: deviceWidth * 0.95,
+        height: 70,
+        alignSelf: "center",
+        borderRadius: 35,
         backgroundColor: offWhite,
         justifyContent: "flex-start",
         flexDirection: "row",
-        height: 60,
-        margin: 1, // Adjust this value to change the width of the border
+        margin: 1,
+        marginTop: 10,
         paddingRight: 7,
         fontSize: 20,
         fontWeight: "bold",
-        width: deviceWidth,
         alignItems: "center",
         marginBottom: 2,
         ...shadows.smallUnder,
     },
     photo: {
-        flex: 1,
+        margin: 5,
+        height: "90%",
         aspectRatio: 1,
-        borderRadius: 5,
-        marginRight: 10,
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
+        borderRadius: 50,
+        overflow: "hidden",
     },
     name: {
         fontSize: 20,

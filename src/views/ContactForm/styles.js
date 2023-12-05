@@ -3,6 +3,12 @@ import {offWhite} from "../../styles/colors"
 import {deviceWidth} from "../../styles/sizes"
 
 export default styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: offWhite,
+        alignItems: "center",
+    },
+
     header: {
         alignSelf: "stretch",
         width: deviceWidth,
@@ -36,15 +42,47 @@ export default styles = StyleSheet.create({
         textAlign: "right",
     },
 
-    container: {
-        padding: 16,
+    addButton: {
+        alignContent: "flex-start",
+        marginBottom: 10,
+        paddingLeft: 20,
+        justifyContent: "flex-start",
+        width: deviceWidth,
     },
+    addBText: {
+        color: "blue",
+        fontWeight: "bold",
+        fontSize: 20,
+        textAlign: "left",
+    },
+
+    photo: {
+        margin: 5,
+        width: deviceWidth,
+        height: 200,
+    },
+
     input: {
+        marginBottom: 10,
+        padding: 12,
+        width: deviceWidth * 0.95,
+        marginHorizontal: deviceWidth * 0.025,
         height: 40,
-        borderColor: "gray",
+        backgroundColor: "#ebebf0",
+        borderRadius: 15,
+    },
+
+    focusedInput: {
+        height: 40,
+        borderColor: "blue",
         borderWidth: 1,
+        borderRadius: 15,
         marginBottom: 10,
         padding: 8,
+        width: deviceWidth * 0.95,
+        marginHorizontal: deviceWidth * 0.025,
+        height: 40,
+        backgroundColor: "#d7d7db",
     },
     errorText: {
         color: "red",
