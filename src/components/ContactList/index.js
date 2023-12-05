@@ -4,15 +4,9 @@ import {useNavigation} from "@react-navigation/native"
 import React, {useState, useEffect, useCallback} from "react"
 import Card from "../Card"
 import styles from "./style"
-<<<<<<< HEAD
 import { addContact, getAllContacts, getOneContract, removeContact, createUserFile, cleanDirectory } from "../../services/fileService";
 import { useFocusEffect } from '@react-navigation/native';
 import * as Contacts from 'expo-contacts';
-=======
-import {getAllContacts, addContact} from "../../services/fileService"
-import importContacts from "../importContacts"
-import * as Contacts from "expo-contacts"
->>>>>>> 1c85d63938b5bf218041364d8af15352ab6fd743
 
 /**
  * @desc This is the contact list component
