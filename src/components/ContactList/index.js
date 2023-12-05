@@ -1,8 +1,8 @@
 import {View, Text, Pressable} from "react-native"
-import React,{ useState, useEffect } from "react"
+import React, {useState, useEffect} from "react"
 import Card from "../Card"
 import styles from "./style"
-import { addContact, getAllContacts, getOneContract, removeContact, createUserFile, cleanDirectory } from "../../services/fileService";
+import {useNavigation} from "@react-navigation/native"
 
 /**
  * @desc This is the contact list component
@@ -12,10 +12,9 @@ import { addContact, getAllContacts, getOneContract, removeContact, createUserFi
  * @exports ContactList
  */
 
-
-
 function ContactList({contacts}) {
-    console.log("This is ContactList Function:..",contacts)
+    const navigation = useNavigation()
+    console.log("This is ContactList Function:..", contacts)
 
     return (
         <View style={styles.container}>
@@ -25,6 +24,7 @@ function ContactList({contacts}) {
             <Pressable
                 onPress={() => {
                     console.log("Pressed Add Contact")
+                    navigation.navigate("ContactForm")
                 }}
                 style={({pressed}) => [
                     {opacity: pressed ? 0.5 : 1},

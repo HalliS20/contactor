@@ -4,29 +4,32 @@ import {useNavigation} from "@react-navigation/native"
 import {addContact} from "../../services/fileService"
 
 function ContactForm() {
-    const [name, setName] = useState("")
+    const [person, setName] = useState("")
     const [photo, setPhoto] = useState("")
-    const [phone, setPhone] = useState("")
+    const [number, setPhone] = useState("")
     const navigation = useNavigation()
 
     const handleSubmit = () => {
         // handle the form submission here
-        const contact = {name, email, phone}
-        addContact(name, contact)
+        const contact = {name: person, image: photo, phone: number}
+        addContact(contact)
             .then(() => {
                 console.log("Contact added successfully")
-                navigation.goBack()
             })
             .catch((error) => {
                 console.error("Failed to add contact:", error)
             })
-        console.log(name, email, phone)
+        console.log(person, photo, number)
         navigation.goBack()
     }
 
     return (
         <View>
-            <TextInput placeholder="Name" value={name} onChangeText={setName} />
+            <TextInput
+                placeholder="Name"
+                value={person}
+                onChangeText={setName}
+            />
             <TextInput
                 placeholder="Photo"
                 value={photo}
@@ -34,7 +37,7 @@ function ContactForm() {
             />
             <TextInput
                 placeholder="Phone"
-                value={phone}
+                value={number}
                 onChangeText={setPhone}
             />
             <Button title="Submit" onPress={handleSubmit} />
