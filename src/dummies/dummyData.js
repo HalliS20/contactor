@@ -15,13 +15,13 @@ const Dummy = () => {
         const add = false // change to true to add the data from data.js
         const clean = false // change to true to clean the directory
 
+        if (clean === true) {
+            cleanDirectory()
+        }
         if (add === true) {
             for (let i = 0; i < users.length; i++) {
                 addContact(users[i])
             }
-        }
-        if (clean === true) {
-            cleanDirectory()
         }
 
         getAllContacts().then((contacts) => {
