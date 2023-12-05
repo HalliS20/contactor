@@ -48,7 +48,10 @@ function ContactList({contacts}) {
                         }
                         let phone = phoneNumbers && phoneNumbers[0] ? phoneNumbers[0].digits : null
                         if (phone === undefined) {
-                            phone = 112
+                            phone = ""
+                        }
+                        if (name === "unknown") {
+                            name = phone;
                         }
                         const contactInfo = {
                             name: name,

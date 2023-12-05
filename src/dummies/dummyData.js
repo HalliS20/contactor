@@ -13,7 +13,7 @@ const Dummy = () => {
     const users = data()
     useEffect(() => {
         const add = false // change to true to add the data from data.js
-        const clean = true // change to true to clean the directory
+        const clean = false // change to true to clean the directory
 
         if (add === true) {
             for (let i = 0; i < users.length; i++) {
