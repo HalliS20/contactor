@@ -13,12 +13,11 @@ import {useNavigation} from "@react-navigation/native"
  * @example <ContactList />
  * @exports ContactList
  */
-
 function ContactList({contacts}) {
     const navigation = useNavigation()
     const [contactList, setContactList] = useState(contacts)
     console.log("This is ContactList Function:..", contacts)
-    const fetchContacts = async () => {
+    const fetchContacts = async() => {
         const fetchedContacts = await getAllContacts()
         setContactList(fetchedContacts)
     }

@@ -2,6 +2,7 @@ import React from "react"
 import {Button, TextInput, View} from "react-native"
 import {Controller, useForm} from "react-hook-form"
 import styles from "./styles"
+import {addContact} from "../../services/fileService"
 
 /**
  *
@@ -10,7 +11,10 @@ import styles from "./styles"
 function Form() {
     const {control, handleSubmit} = useForm()
 
-    const onSubmit = (data) => console.log("Submit pressed", data)
+    const onSubmit = content => {
+        console.log("Submit pressed", content);
+        addContact(content);
+    }
 
     return (
         <View style={styles.container}>
@@ -24,7 +28,7 @@ function Form() {
                         value={value}
                     />
                 )}
-                name="Name"
+                name="name"
                 defaultValue=""
             />
             <Controller
@@ -37,7 +41,7 @@ function Form() {
                         value={value}
                     />
                 )}
-                name="Phone"
+                name="phone"
                 defaultValue=""
             />
             <Controller
@@ -50,7 +54,7 @@ function Form() {
                         value={value}
                     />
                 )}
-                name="Image"
+                name="image"
                 defaultValue=""
             />
             <Button title="Submit" onPress={handleSubmit(onSubmit)} />
