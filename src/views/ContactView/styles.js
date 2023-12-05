@@ -6,55 +6,51 @@ import {deviceWidth, deviceHeight} from "../../styles/sizes"
 export const styles = StyleSheet.create({
     container: {
         width: deviceWidth * 1,
-
+        height: deviceHeight * 1,
         backgroundColor: offWhite,
-        alignItems: 'center', // Center items horizontally
-        justifyContent: 'center', // Center items vertically
+        alignItems: "center", // Center items horizontally
+        justifyContent: "flex-start", // Center items vertically
     },
-
 
     buttonStyleCall: {
         ...buttonStyle.fullWidth,
 
         marginBottom: 10, // Add some margin at the bottom
-        alignSelf: 'center', // Center this button horizontally
-        backgroundColor: 'navy',
-        borderColor: 'gold',
+        alignSelf: "center", // Center this button horizontally
+        backgroundColor: "navy",
+        borderColor: "gold",
         borderWidth: 1,
     },
 
     buttonStyleBack: {
         ...buttonStyle.fullWidth,
         marginBottom: 20, // Add some margin at the bottom
-        alignSelf: 'center', // Center this button horizontally
-        backgroundColor: 'white',
-        borderColor: 'navy',
+        alignSelf: "center", // Center this button horizontally
+        backgroundColor: "white",
+        borderColor: "navy",
         borderWidth: 1,
     },
 
     buttonRow: {
         spaceBetween: 0,
-        flexDirection: 'row', // Arrange items in a row
-        justifyContent: 'space-between', // Add space between the items
+        flexDirection: "row", // Arrange items in a row
+        justifyContent: "space-between", // Add space between the items
         width: deviceWidth * 1, // Same width as the call button
-        alignSelf: 'center', // Center this row horizontally
-        
-        
+        alignSelf: "center", // Center this row horizontally
     },
     buttonStyle: {
         ...buttonStyle.haldWidth,
-        width: deviceWidth * 0.40,
-        backgroundColor: 'white',
-        borderColor: 'green',
+        width: deviceWidth * 0.4,
+        backgroundColor: "white",
+        borderColor: "green",
         borderWidth: 2,
-
     },
 
     buttonStyleDelete: {
         ...buttonStyle.haldWidth,
-        width: deviceWidth * 0.40,
-        backgroundColor: 'white',
-        borderColor: 'red',
+        width: deviceWidth * 0.4,
+        backgroundColor: "white",
+        borderColor: "red",
         borderWidth: 2,
     },
 
@@ -73,7 +69,6 @@ export const styles = StyleSheet.create({
         color: "red",
         fontWeight: "bold",
     },
-
 })
 
 export default styles

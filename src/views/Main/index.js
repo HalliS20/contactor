@@ -6,6 +6,7 @@ import {
     cleanDirectory,
 } from "../../services/fileService"
 import ContactList from "../../components/ContactList"
+import styles from "./styles"
 
 const Main = ({navigation: {navigate}}) => {
     const [contacts, setContacts] = useState([])
@@ -22,7 +23,7 @@ const Main = ({navigation: {navigate}}) => {
     }, [])
 
     return (
-        <View>
+        <View style={styles.main}>
             <ContactList contacts={contacts} />
         </View>
     )

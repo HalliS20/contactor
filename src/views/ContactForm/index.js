@@ -3,7 +3,7 @@ import {Controller, useForm} from "react-hook-form"
 import {View, TextInput, Button, TouchableOpacity, Text} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {addContact, removeContact} from "../../services/fileService"
-import * as imageService from "../../services/imageService";
+import * as imageService from "../../services/imageService"
 import styles from "./styles"
 import AddModal from "../../components/AddModal"
 
@@ -16,14 +16,18 @@ function ContactForm({route}) {
     const {control, handleSubmit} = useForm()
     const contact = route.params ? route.params.contact : undefined
     // A boolean flag to indicate whether the modal to add an image is open or not
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const takePhoto = async() => {
-        const photo = await imageService.takePhoto();
-        if (photo.length > 0) { await addImage(photo); }
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+    const takePhoto = async () => {
+        const photo = await imageService.takePhoto()
+        if (photo.length > 0) {
+            await addImage(photo)
+        }
     }
-    const selectFromCameraRoll = async() => {
-        const photo = await imageService.selectFromCameraRoll();
-        if (photo.length > 0) { await addImage(photo); }
+    const selectFromCameraRoll = async () => {
+        const photo = await imageService.selectFromCameraRoll()
+        if (photo.length > 0) {
+            await addImage(photo)
+        }
     }
 
     const onSubmit = (content) => {
@@ -33,7 +37,7 @@ function ContactForm({route}) {
             removeContact(contact.fileName)
         }
         addContact(content)
-        navigation.navigate("Main")
+        navigation.navigate("Contactor")
     }
 
     return (
@@ -94,7 +98,8 @@ function ContactForm({route}) {
                 isOpen={isAddModalOpen}
                 closeModal={() => setIsAddModalOpen(false)}
                 takePhoto={() => takePhoto()}
-                selectFromCameraRoll={() => selectFromCameraRoll()} />
+                selectFromCameraRoll={() => selectFromCameraRoll()}
+            />
         </View>
     )
 }

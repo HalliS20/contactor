@@ -1,12 +1,10 @@
 import {StyleSheet} from "react-native"
 import {deviceHeight, deviceWidth} from "../../styles/sizes"
+import {offWhite} from "../../styles/colors"
 
 export default StyleSheet.create({
     main: {
-        flexDirection: "column",
-        alignItems: "center",
-        flex: 1,
-        marginTop: "5%",
+        backgroundColor: offWhite,
     },
     container: {
         // backgroundColor: "transparent",

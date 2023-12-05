@@ -5,7 +5,6 @@ import {shadows} from "../../styles/shadows"
 import {white, black, navajoWhite, offWhite} from "../../styles/colors"
 
 export const styles = StyleSheet.create({
-    container: {},
     innerContainer: {
         width: 300,
         height: 100,
