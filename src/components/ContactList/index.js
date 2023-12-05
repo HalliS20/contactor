@@ -11,9 +11,9 @@ import React, {useState, useCallback, useEffect} from "react"
 import Card from "../Card"
 import styles from "./style"
 import {getAllContacts, addContact} from "../../services/fileService"
-import * as Contacts from "expo-contacts"
-import {buttonStyle} from "../../styles/buttons"
 import Spinner from "../Spinner"
+import {importContacts} from "../../services/importContacts"
+import {set} from "react-hook-form"
 
 /**
  * @desc This is the contact list component
@@ -34,73 +34,21 @@ function ContactList({contacts}) {
         setContactList(fetchedContacts)
         setIsLoading(false)
     }
-
-    useFocusEffect(
-        useCallback(() => {
-            fetchContacts()
-        }, []),
-    )
-
     useEffect(() => {
-        console.log("isLoading:", isLoading) // log the isLoading state
-    }, [isLoading])
+        setContactList(contacts)
+    }, [contacts])
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         fetchContacts()
+    //     }, []),
+    // )
 
-    const importContacts = async () => {
-        try {
-            const {status} = await Contacts.requestPermissionsAsync()
-            if (status === "granted") {
-                const {data} = await Contacts.getContactsAsync({
-                    fields: [
-                        Contacts.Fields.FirstName,
-                        Contacts.Fields.LastName,
-                        Contacts.Fields.PhoneNumbers,
-                    ],
-                })
-
-                if (data.length > 0) {
-                    await Promise.all(
-                        data.map(
-                            async ({firstName, lastName, phoneNumbers}) => {
-                                let name = firstName
-                                if (name === undefined) {
-                                    name = "Unknown"
-                                }
-                                if (lastName !== undefined) {
-                                    name = name + " " + lastName
-                                }
-                                let phone =
-                                    phoneNumbers && phoneNumbers[0]
-                                        ? phoneNumbers[0].digits
-                                        : null
-                                if (phone === undefined) {
-                                    phone = ""
-                                }
-                                if (name === "unknown") {
-                                    name = phone
-                                }
-                                const contactInfo = {
-                                    name: name,
-                                    phone: phone,
-                                    image: "https://www.nbmchealth.com/wp-content/uploads/2018/05/765-default-avatar-300x300.png",
-                                }
-                                console.log(
-                                    "This is importContacts Function:..",
-                                    contactInfo,
-                                )
-                                setIsLoading(true)
-                                await addContact(contactInfo)
-                                setIsLoading(false)
-                            },
-                        ),
-                    )
-                    fetchContacts()
-                }
-            }
-        } catch (error) {
-            console.error("An error occurred while importing contacts:", error)
-        }
+    const handleImportContacts = async () => {
+        setIsLoading(true)
+        await importContacts()
+        fetchContacts()
+        setIsLoading(false)
     }
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -152,7 +100,7 @@ function ContactList({contacts}) {
                             ]}
                             title="importContacts"
                             onPress={() => {
-                                importContacts()
+                                handleImportContacts()
                             }}
                         >
                             <Text>Import Contacts</Text>

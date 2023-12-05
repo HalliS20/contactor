@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useCallback} from "react"
 import {Text, View} from "react-native"
 import {
     addContact,
@@ -6,10 +6,11 @@ import {
     cleanDirectory,
 } from "../../services/fileService"
 import ContactList from "../../components/ContactList"
+import {useFocusEffect} from "@react-navigation/native"
 
 const Main = ({navigation: {navigate}}) => {
     const [contacts, setContacts] = useState([])
-    useEffect(() => {
+    useFocusEffect(() => {
         const clean = false // change to true to clean the directory
 
         if (clean === true) {
@@ -19,7 +20,7 @@ const Main = ({navigation: {navigate}}) => {
         getAllContacts().then((contacts) => {
             setContacts(contacts)
         })
-    }, [])
+    })
 
     return (
         <View>
