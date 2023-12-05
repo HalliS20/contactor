@@ -7,7 +7,6 @@ import {deviceWidth} from "../../styles/sizes"
 function ContactView({route}) {
     const {contact} = route.params
     const navigation = useNavigation()
-    const [imageFound, setImageFound] = useState(true)
     const [imageSource, setImageSource] = useState(
         contact.image
             ? {uri: contact.image}
