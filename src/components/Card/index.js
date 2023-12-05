@@ -42,15 +42,14 @@ function Card({info}) {
                 styles.innerContainer,
             ]}
         >
-            {cardInfo.image && (
-                <View style={styles.photoView}>
-                    <Image
-                        style={styles.photo}
-                        source={imageSource}
-                        onError={handleError}
-                    />
-                </View>
-            )}
+            <View style={styles.photoView}>
+                <Image
+                    style={styles.photo}
+                    source={imageSource}
+                    onError={handleError}
+                    defaultSource={require("../../resources/default-avatar.png")}
+                />
+            </View>
             <Text style={styles.name}> {cardInfo.name}</Text>
         </Pressable>
     )

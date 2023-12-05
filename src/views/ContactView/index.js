@@ -23,13 +23,12 @@ function ContactView({route}) {
 
     return (
         <View>
-            {contact.image && (
-                <Image
-                    style={{width: deviceWidth * 1, height: 100}}
-                    source={imageSource}
-                    onError={handleError}
-                />
-            )}
+            <Image
+                style={{width: deviceWidth * 1, height: 100}}
+                source={imageSource}
+                onError={handleError}
+                defaultSource={require("../../resources/default-avatar.png")}
+            />
             {console.log(contact.image)}
             <Text>Name: {contact.name}</Text>
             <Text>Phone: {contact.phone}</Text>
