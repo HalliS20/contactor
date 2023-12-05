@@ -1,10 +1,12 @@
-import {View, Text, Pressable} from "react-native"
+import {View, Text, Pressable, Button} from "react-native"
+import {useFocusEffect} from "@react-navigation/native"
+import {useNavigation} from "@react-navigation/native"
 import React, {useState, useEffect, useCallback} from "react"
 import Card from "../Card"
 import styles from "./style"
-import {getAllContacts} from "../../services/fileService"
-import {useFocusEffect} from "@react-navigation/native"
-import {useNavigation} from "@react-navigation/native"
+import {getAllContacts, addContact} from "../../services/fileService"
+import importContacts from "../importContacts"
+import * as Contacts from "expo-contacts"
 
 /**
  * @desc This is the contact list component
@@ -28,6 +30,25 @@ function ContactList({contacts}) {
             fetchContacts()
         }, []),
     )
+    const importContacts = async () => {
+        const {status} = await Contacts.requestPermissionsAsync()
+        if (status === "granted") {
+            const {data} = await Contacts.getContactsAsync({
+                fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
+            })
+
+            if (data.length > 0) {
+                data.forEach(async ({name, phoneNumbers, image}) => {
+                    const contact = {
+                        name: name,
+                        phoneNumber: phoneNumbers[0]?.number, // Assuming you want the first phone number
+                        image: image?.uri, // Assuming the image object has a uri property
+                    }
+                    await addContact(contact)
+                })
+            }
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -46,6 +67,12 @@ function ContactList({contacts}) {
             >
                 <Text>Add Contact </Text>
             </Pressable>
+            <Button
+                title="importContacts"
+                onPress={() => {
+                    importContacts()
+                }}
+            />
         </View>
     )
 }
