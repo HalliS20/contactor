@@ -4,6 +4,7 @@ import Card from "../Card"
 import styles from "./style"
 import {getAllContacts} from "../../services/fileService"
 import {useFocusEffect} from "@react-navigation/native"
+import {useNavigation} from "@react-navigation/native"
 
 /**
  * @desc This is the contact list component
@@ -14,6 +15,7 @@ import {useFocusEffect} from "@react-navigation/native"
  */
 
 function ContactList({contacts}) {
+    const navigation = useNavigation()
     const [contactList, setContactList] = useState(contacts)
     console.log("This is ContactList Function:..", contacts)
     const fetchContacts = async () => {
