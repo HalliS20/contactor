@@ -3,17 +3,20 @@ import {Button, TextInput, View} from "react-native"
 import {Controller, useForm} from "react-hook-form"
 import styles from "./styles"
 import {addContact} from "../../services/fileService"
+import { useNavigation } from "@react-navigation/native"
 
 /**
  *
  * @returns  {JSX.Element}
  */
 function Form() {
+    const navigate = useNavigation()
     const {control, handleSubmit} = useForm()
 
     const onSubmit = content => {
         console.log("Submit pressed", content);
         addContact(content);
+        navigate.goBack();
     }
 
     return (
