@@ -1,11 +1,10 @@
-import {View, Text, Pressable, Button} from "react-native"
+import {View, Text, Pressable, Button,TextInput} from "react-native"
 import {useFocusEffect} from "@react-navigation/native"
 import {useNavigation} from "@react-navigation/native"
 import React, {useState, useEffect, useCallback} from "react"
 import Card from "../Card"
 import styles from "./style"
 import { addContact, getAllContacts, getOneContract, removeContact, createUserFile, cleanDirectory } from "../../services/fileService";
-import { useFocusEffect } from '@react-navigation/native';
 import * as Contacts from 'expo-contacts';
 
 /**
