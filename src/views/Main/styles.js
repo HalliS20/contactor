@@ -9,7 +9,7 @@ export default StyleSheet.create({
         marginTop: "5%",
     },
     container: {
-        backgroundColor: "transparent",
+        // backgroundColor: "transparent",
         height: deviceHeight,
         width: deviceWidth,
         flex: 1,

@@ -1,10 +1,12 @@
 import {View, Text, Pressable, Button, TextInput} from "react-native"
 import {useNavigation, useFocusEffect} from "@react-navigation/native"
-import React, {useState, useCallback} from "react"
+import React, {useState, useCallback, useEffect} from "react"
 import Card from "../Card"
 import styles from "./style"
 import {getAllContacts, addContact} from "../../services/fileService"
 import * as Contacts from "expo-contacts"
+import {buttonStyle} from "../../styles/buttons"
+import Spinner from "../Spinner"
 
 /**
  * @desc This is the contact list component
@@ -16,11 +18,14 @@ import * as Contacts from "expo-contacts"
 function ContactList({contacts}) {
     const navigation = useNavigation()
     const [contactList, setContactList] = useState(contacts)
-    console.log("This is ContactList Function:..", contacts)
+    const [isLoading, setIsLoading] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
+
     const fetchContacts = async () => {
+        setIsLoading(true)
         const fetchedContacts = await getAllContacts()
         setContactList(fetchedContacts)
+        setIsLoading(false)
     }
 
     useFocusEffect(
@@ -28,6 +33,11 @@ function ContactList({contacts}) {
             fetchContacts()
         }, []),
     )
+
+    useEffect(() => {
+        console.log("isLoading:", isLoading) // log the isLoading state
+    }, [isLoading])
+
     const importContacts = async () => {
         try {
             const {status} = await Contacts.requestPermissionsAsync()
@@ -70,7 +80,9 @@ function ContactList({contacts}) {
                                     "This is importContacts Function:..",
                                     contactInfo,
                                 )
+                                setIsLoading(true)
                                 await addContact(contactInfo)
+                                setIsLoading(false)
                             },
                         ),
                     )
@@ -101,22 +113,33 @@ function ContactList({contacts}) {
                 ))}
             <Pressable
                 onPress={() => {
-                    console.log("Pressed Add Contact")
                     navigation.navigate("ContactForm")
                 }}
                 style={({pressed}) => [
                     {opacity: pressed ? 0.5 : 1},
-                    styles.innerContainer,
+                    buttonStyle.mostWidth,
                 ]}
             >
-                <Text>Add Contact </Text>
+                <Text style={buttonStyle.text}>Add Contact </Text>
             </Pressable>
-            <Button
-                title="importContacts"
-                onPress={() => {
-                    importContacts()
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
                 }}
-            />
+            >
+                {isLoading ? (
+                    <Spinner />
+                ) : (
+                    <Button
+                        title="importContacts"
+                        onPress={() => {
+                            importContacts()
+                        }}
+                    />
+                )}
+            </View>
         </View>
     )
 }

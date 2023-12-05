@@ -25,6 +25,7 @@
     "react-native-modal": "^13.0.1",
     "react-native-reanimated": "~3.3.0",
     "react-native-web": "~0.19.6",
+    "utf8": "^3.0.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

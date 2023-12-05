@@ -1,20 +1,16 @@
 import React from "react"
-import { ScrollView, Text, View } from "react-native"
-import ContactList from "../../components/ContactList";
-import Dummy from "../../dummies/dummyData";
+import {ScrollView, Text, View} from "react-native"
+import ContactList from "../../components/ContactList"
+import Dummy from "../../dummies/dummyData"
 
-
-
-const Main = ({ navigation: { navigate } }) => {
+const Main = ({navigation: {navigate}}) => {
     return (
         <View>
-            <Text>Contactor</Text>
             <ScrollView>
-                < Dummy/>
-              
+                <Dummy />
             </ScrollView>
         </View>
-    );
-};
+    )
+}
 
-export default Main;
+export default Main

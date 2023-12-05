@@ -1,6 +1,7 @@
 import * as FileSystem from "expo-file-system"
 import "react-native-get-random-values"
 import {v4 as uuidv4} from "uuid"
+import utf8 from "utf8"
 
 const contactDirectory = `${FileSystem.documentDirectory}contacts/`
 
@@ -53,7 +54,8 @@ export const removeContact = async (fileName) => {
 export const addContact = async (content) => {
     "this is a docstring, or is it?"
     const uuid = uuidv4()
-    const fileName = `${content.name}-${uuid}.json`
+    const encodedName = utf8.encode(content.name)
+    const fileName = `${encodedName}-${uuid}.json`
     await FileSystem.writeAsStringAsync(
         `${contactDirectory}${fileName}`,
         JSON.stringify(content),
