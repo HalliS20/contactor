@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {Controller, useForm} from "react-hook-form"
-import {View, TextInput, Button, TouchableOpacity, Text} from "react-native"
+import {View, TextInput, Button, TouchableOpacity, Text, Image} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {addContact, removeContact} from "../../services/fileService"
 import * as imageService from "../../services/imageService";
@@ -14,16 +14,18 @@ import AddModal from "../../components/AddModal"
 function ContactForm({route}) {
     const navigation = useNavigation()
     const {control, handleSubmit} = useForm()
+    const {photo, setPhoto} = useState("");    
     const contact = route.params ? route.params.contact : undefined
     // A boolean flag to indicate whether the modal to add an image is open or not
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const takePhoto = async() => {
         const photo = await imageService.takePhoto();
-        if (photo.length > 0) { await addImage(photo); }
+        console.log("photo", photo)
+        if (photo.length > 0) { setPhoto(photo); }
     }
     const selectFromCameraRoll = async() => {
         const photo = await imageService.selectFromCameraRoll();
-        if (photo.length > 0) { await addImage(photo); }
+        if (photo.length > 0) { setPhoto(photo); }
     }
 
     const onSubmit = (content) => {
@@ -90,6 +92,12 @@ function ContactForm({route}) {
             <TouchableOpacity onPress={() => setIsAddModalOpen(true)}>
                 <Text>Add Image</Text>
             </TouchableOpacity>
+            {photo && (
+                <Image
+                    style={{width: 50, height: 50}}
+                    source={{uri: photo}}
+                />
+            )}
             <AddModal
                 isOpen={isAddModalOpen}
                 closeModal={() => setIsAddModalOpen(false)}

@@ -21,19 +21,25 @@ export const selectFromCameraRoll = async() => {
         aspect: [16, 9],
     });
 
-    if (result.canceled) { return ""; }
+    if (result.cancelled) { return ""; }
     return result.uri;
 };
 
 export const takePhoto = async() => {
-    await getPermission([CAMERA, CAMERA_ROLL]);
-    const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: .8,
-        base64: true,
-        aspect: [16, 9],
-    });
+    try {
+        await getPermission([CAMERA, CAMERA_ROLL]);
+        const result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: .8,
+            base64: true,
+            aspect: [16, 9],
+        });
 
-    if (result.canceled) { return ""; }
-    return result.uri;
+        if (result.canceled) { return ""; }
+        console.log("result uri: ", result.uri);
+        return result.uri;
+    } catch (error) {
+        console.error("Error taking photo: ", error);
+        return "";
+    }
 };
