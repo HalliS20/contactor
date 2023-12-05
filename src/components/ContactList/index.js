@@ -6,14 +6,12 @@ import {
     TextInput,
     ScrollView,
 } from "react-native"
-import {useNavigation, useFocusEffect} from "@react-navigation/native"
-import React, {useState, useCallback, useEffect} from "react"
+import {useNavigation} from "@react-navigation/native"
+import React, {useState, useEffect} from "react"
 import Card from "../Card"
 import styles from "./style"
-import {getAllContacts, addContact} from "../../services/fileService"
 import Spinner from "../Spinner"
 import {importContacts} from "../../services/importContacts"
-import {set} from "react-hook-form"
 
 /**
  * @desc This is the contact list component
@@ -32,7 +30,7 @@ function ContactList({contacts, refresh, setRefresh}) {
     const handleImportContacts = async () => {
         setIsLoading(true)
         await importContacts().then(() => {
-            setRefresh(true)
+            setRefresh(true) // sets refresh to true and triggers full page refresh
         })
         setIsLoading(false)
     }
@@ -42,6 +40,7 @@ function ContactList({contacts, refresh, setRefresh}) {
         setContactList(contacts)
     }, [contacts])
 
+    // listen for change in refresh
     useEffect(() => {
         if (refresh) {
             setContactList(contacts)
@@ -51,6 +50,7 @@ function ContactList({contacts, refresh, setRefresh}) {
 
     return (
         <View style={styles.container}>
+            {/* /////////// Header part /////////  */}
             <View style={styles.header}>
                 <View style={styles.topTitle}>
                     <Text style={styles.title}>Contactor</Text>
@@ -73,6 +73,8 @@ function ContactList({contacts, refresh, setRefresh}) {
                     value={searchTerm}
                 />
             </View>
+
+            {/* ////////////// Contacts list part ////////////// */}
             <ScrollView style={styles.list}>
                 {contactList
                     .filter((contact) =>
@@ -90,6 +92,7 @@ function ContactList({contacts, refresh, setRefresh}) {
                         alignItems: "center",
                     }}
                 >
+                    {/* ////// Displays spinner if loading otherwise import Button /////// */}
                     {isLoading ? (
                         <Spinner />
                     ) : (

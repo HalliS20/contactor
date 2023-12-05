@@ -13,15 +13,17 @@ const Main = ({navigation: {navigate}}) => {
     const [refresh, setRefresh] = useState(false)
 
     const fetchContacts = useCallback(() => {
+        ////////// For deletin all data in development //////////
         const clean = false // change to true to clean the directory
 
         if (clean === true) {
             cleanDirectory()
         }
 
+        ////////// For adding contacts //////////
         getAllContacts().then((contacts) => {
             setContacts(contacts)
-            setRefresh(!refresh)
+            setRefresh(!refresh) // Reset refresh state after refreshing the list
         })
     }, [refresh])
 
