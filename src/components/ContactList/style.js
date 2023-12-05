@@ -70,6 +70,29 @@ export const styles = StyleSheet.create({
         ...shadows.smallUnder,
     },
     spinner: {marginTop: 100},
+
+    input: {
+        marginBottom: 10,
+        padding: 12,
+        width: deviceWidth * 0.95,
+        marginHorizontal: deviceWidth * 0.025,
+        height: 40,
+        backgroundColor: "#ebebf0",
+        borderRadius: 15,
+    },
+
+    focusedInput: {
+        height: 40,
+        borderColor: "blue",
+        borderWidth: 1,
+        borderRadius: 15,
+        marginBottom: 10,
+        padding: 8,
+        width: deviceWidth * 0.95,
+        marginHorizontal: deviceWidth * 0.025,
+        height: 40,
+        backgroundColor: "#d7d7db",
+    },
 })
 
 export default styles

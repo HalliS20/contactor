@@ -25,6 +25,7 @@ function ContactList({contacts, refresh, setRefresh}) {
     const [contactList, setContactList] = useState(contacts)
     const [isLoading, setIsLoading] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
+    const [Focused, setFocus] = useState(false)
 
     //////////////// importing contacts ///////////////
     const handleImportContacts = async () => {
@@ -67,7 +68,11 @@ function ContactList({contacts, refresh, setRefresh}) {
                     </Pressable>
                 </View>
                 <TextInput
-                    style={styles.searchBar}
+                    style={Focused ? styles.focusedInput : styles.input}
+                    onBlur={() => {
+                        setFocus(false)
+                    }}
+                    onFocus={() => setFocus(true)}
                     placeholder="Search..."
                     onChangeText={(text) => setSearchTerm(text)}
                     value={searchTerm}
