@@ -1,7 +1,8 @@
 import React from "react"
-import {View, Text, Button, Linking} from "react-native"
+import {View, Text, Button, Linking, Image} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {removeContact} from "../../services/fileService"
+import {deviceWidth} from "../../styles/sizes"
 
 function ContactView({route}) {
     const {contact} = route.params
@@ -13,6 +14,11 @@ function ContactView({route}) {
 
     return (
         <View>
+            <Image
+                style={{width: deviceWidth * 1, height: 100}}
+                source={{uri: contact.image}}
+            />
+            {console.log(contact.image)}
             <Text>Name: {contact.name}</Text>
             <Text>Phone: {contact.phone}</Text>
             <Text>fileName: {contact.fileName}</Text>
