@@ -1,11 +1,9 @@
-import {View, Text, Pressable, Button} from "react-native"
-import {useFocusEffect} from "@react-navigation/native"
-import {useNavigation} from "@react-navigation/native"
-import React, {useState, useEffect, useCallback} from "react"
+import {View, Text, Pressable, Button, TextInput} from "react-native"
+import {useNavigation, useFocusEffect} from "@react-navigation/native"
+import React, {useState, useCallback} from "react"
 import Card from "../Card"
 import styles from "./style"
 import {getAllContacts, addContact} from "../../services/fileService"
-import importContacts from "../importContacts"
 import * as Contacts from "expo-contacts"
 
 /**
@@ -19,7 +17,8 @@ function ContactList({contacts}) {
     const navigation = useNavigation()
     const [contactList, setContactList] = useState(contacts)
     console.log("This is ContactList Function:..", contacts)
-    const fetchContacts = async() => {
+    const [searchTerm, setSearchTerm] = useState("")
+    const fetchContacts = async () => {
         const fetchedContacts = await getAllContacts()
         setContactList(fetchedContacts)
     }
@@ -51,9 +50,21 @@ function ContactList({contacts}) {
 
     return (
         <View style={styles.container}>
-            {contactList.map((contact, index) => (
-                <Card key={index} info={contact} />
-            ))}
+            <TextInput
+                style={styles.searchBar}
+                placeholder="Search..."
+                onChangeText={(text) => setSearchTerm(text)}
+                value={searchTerm}
+            />
+            {contactList
+                .filter((contact) =>
+                    contact.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                )
+                .map((contact, index) => (
+                    <Card key={index} info={contact} />
+                ))}
             <Pressable
                 onPress={() => {
                     console.log("Pressed Add Contact")
