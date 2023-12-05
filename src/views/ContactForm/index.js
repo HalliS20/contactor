@@ -191,7 +191,13 @@ function ContactForm({route}) {
                 name="image"
                 defaultValue={contact && contact.image ? contact.image : ""}
             />
-            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+            <Pressable
+                style={styles.submitButton}
+                title="Submit"
+                onPress={handleSubmit(onSubmit)}
+            >
+                <Text style={styles.submitBText}>Submit</Text>
+            </Pressable>
             <AddModal
                 isOpen={isAddModalOpen}
                 closeModal={() => setIsAddModalOpen(false)}

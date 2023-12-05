@@ -84,6 +84,32 @@ export default styles = StyleSheet.create({
         height: 40,
         backgroundColor: "#d7d7db",
     },
+
+    submitButton: {
+        alignSelf: "center",
+        height: 50,
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "blue",
+        borderRadius: 4,
+        padding: 10,
+        width: deviceWidth * 0.95,
+    },
+
+    submitBText: {
+        color: "blue",
+        fontWeight: "bold",
+        fontSize: 20,
+    },
+
+    buttonBar: {
+        marginHorizontal: deviceWidth * 0,
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+
     errorText: {
         color: "red",
         marginBottom: 10,
