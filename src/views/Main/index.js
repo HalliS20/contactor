@@ -7,6 +7,7 @@ import {
 } from "../../services/fileService"
 import ContactList from "../../components/ContactList"
 import {useFocusEffect} from "@react-navigation/native"
+import styles from "./styles"
 
 const Main = ({navigation: {navigate}}) => {
     const [contacts, setContacts] = useState([])
@@ -30,7 +31,7 @@ const Main = ({navigation: {navigate}}) => {
     useFocusEffect(fetchContacts)
 
     return (
-        <View>
+        <View style={styles.main}>
             <ContactList
                 contacts={contacts}
                 refresh={refresh}

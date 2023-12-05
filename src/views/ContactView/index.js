@@ -18,12 +18,19 @@ function ContactView({route}) {
     }
     return (
         <View style={styles.container}>
-            <Image
-                style={{width: deviceWidth * 1, height: 200}}
-                source={{uri: contact.image}}
-                onError={() => setImageFound(false)}
-                defaultSource={require("../../resources/default-avatar.png")}
-            />
+            {contact.image && imageFound ? (
+                <Image
+                    style={{width: deviceWidth * 1, height: 200}}
+                    source={{uri: contact.image}}
+                    onError={() => setImageFound(false)}
+                />
+            ) : (
+                <Image
+                    style={{width: deviceWidth * 1, height: 200}}
+                    source={require("../../resources/default-avatar.png")}
+                />
+            )}
+
             <Text style={styles.textStyle}>{contact.name}</Text>
             <Text style={styles.textStyle}>{contact.phone}</Text>
             <Pressable style={styles.buttonStyleCall} onPress={handleCall}>

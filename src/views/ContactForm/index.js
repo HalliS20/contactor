@@ -49,7 +49,7 @@ function ContactForm({route}) {
         }
         addContact(content).then(() => {
             console.log("Submit pressed", content)
-            navigation.navigate("Main")
+            navigation.navigate("Contactor")
         })
     }
 
