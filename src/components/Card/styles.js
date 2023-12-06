@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     photo: {
         margin: 5,
-        height: "90%",
+        height: 60,
         aspectRatio: 1,
         borderRadius: 50,
         overflow: "hidden",
