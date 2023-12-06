@@ -3,7 +3,7 @@ import {
     Text,
     Pressable,
     TextInput,
-    ScrollView,
+    FlatList,
     SafeAreaView,
 } from "react-native"
 import {useNavigation} from "@react-navigation/native"
@@ -80,44 +80,45 @@ function ContactList({contacts, refresh, setRefresh}) {
             </View>
 
             {/* ////////////// Contacts list part ////////////// */}
-            <ScrollView style={styles.list}>
-                {contactList
-                    .filter((contact) =>
-                        contact.name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()),
-                    )
-                    .map((contact, index) => (
-                        <Card key={index} info={contact} refresh={refresh} />
-                    ))}
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    {/* ////// Displays spinner if loading otherwise import Button /////// */}
-                    {isLoading ? (
-                        <View style={styles.spinner}>
-                            <Spinner />
-                        </View>
-                    ) : (
-                        <Pressable
-                            style={({pressed}) => [
-                                {opacity: pressed ? 0.5 : 1},
-                                styles.importButton,
-                            ]}
-                            title="importContacts"
-                            onPress={() => {
-                                handleImportContacts()
-                            }}
-                        >
-                            <Text>Import Contacts</Text>
-                        </Pressable>
-                    )}
-                </View>
-            </ScrollView>
+            <FlatList
+                style={styles.list}
+                data={contactList.filter((contact) =>
+                    contact.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({item}) => <Card info={item} refresh={refresh} />}
+                ListFooterComponent={() => (
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        {/* ////// Displays spinner if loading otherwise import Button /////// */}
+                        {isLoading ? (
+                            <View style={styles.spinner}>
+                                <Spinner />
+                            </View>
+                        ) : (
+                            <Pressable
+                                style={({pressed}) => [
+                                    {opacity: pressed ? 0.5 : 1},
+                                    styles.importButton,
+                                ]}
+                                title="importContacts"
+                                onPress={() => {
+                                    handleImportContacts()
+                                }}
+                            >
+                                <Text>Import Contacts</Text>
+                            </Pressable>
+                        )}
+                    </View>
+                )}
+            />
         </SafeAreaView>
     )
 }
