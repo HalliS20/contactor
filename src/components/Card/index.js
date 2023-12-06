@@ -22,9 +22,13 @@ function Card({info, refresh}) {
 
     useEffect(() => {
         if (refresh) {
-            setCardInfo(info)
+            // setCardInfo(info)
         }
     }, [refresh])
+
+    useEffect(() => {
+        setCardInfo(info)
+    }, [info])
 
     return (
         <Pressable

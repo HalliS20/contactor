@@ -37,17 +37,18 @@ function ContactList({contacts, refresh, setRefresh}) {
     }
 
     /////////////// For refreshing /////////
-    useEffect(() => {
-        setContactList(contacts)
-    }, [contacts])
 
     // listen for change in refresh
     useEffect(() => {
         if (refresh) {
-            setContactList(contacts)
+            // setContactList(contacts)
             setRefresh(!refresh) // Reset refresh state after refreshing the list
         }
     }, [refresh])
+
+    useEffect(() => {
+        setContactList(contacts)
+    }, [contacts])
 
     return (
         <SafeAreaView style={styles.container}>
