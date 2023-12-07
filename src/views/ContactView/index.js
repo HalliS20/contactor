@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import {View, Text, Linking, Image, Pressable, SafeAreaView} from "react-native"
 import {useNavigation} from "@react-navigation/native"
-import {removeContact} from "../../services/fileService"
 import {deviceWidth} from "../../styles/sizes"
 import styles from "./styles"
 
@@ -13,9 +12,6 @@ function ContactView({route}) {
     const handleCall = () => {
         Linking.openURL(`tel:${contact.phone}`)
     }
-    {
-        console.log(contact.image)
-    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -24,7 +20,7 @@ function ContactView({route}) {
                         {opacity: pressed ? 0.5 : 1},
                         styles.backButton,
                     ]}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Main")}
                 >
                     <Text style={styles.backBText}>Back</Text>
                 </Pressable>
@@ -62,15 +58,6 @@ function ContactView({route}) {
             >
                 <Text style={styles.clBText}>Call me</Text>
             </Pressable>
-            {/* <Pressable
-                style={styles.buttonStyleDelete}
-                onPress={() => {
-                    removeContact(contact.fileName)
-                    navigation.goBack()
-                }}
-            >
-                <Text style={styles.textStyleDelete}>Delete Me!!!</Text>
-            </Pressable> */}
         </SafeAreaView>
     )
 }

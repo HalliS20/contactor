@@ -3,7 +3,6 @@ import {Controller, useForm} from "react-hook-form"
 import {
     View,
     TextInput,
-    Button,
     Text,
     Image,
     Pressable,
@@ -53,8 +52,9 @@ function ContactForm({route}) {
             content.image = photo
         }
         addContact(content).then(() => {
-            console.log("Submit pressed", content)
-            navigation.navigate("Contactor")
+            navigation.navigate("Main", {
+                shouldFetchContacts: true,
+            })
         })
     }
 
@@ -75,7 +75,9 @@ function ContactForm({route}) {
                         style={styles.deleteButton}
                         onPress={() => {
                             removeContact(contact.fileName)
-                            navigation.navigate("Contactor")
+                            navigation.navigate("Main", {
+                                shouldFetchContacts: true,
+                            })
                         }}
                     >
                         <Text style={styles.delBText}>Delete</Text>

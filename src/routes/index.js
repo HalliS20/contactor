@@ -4,7 +4,6 @@ import {createStackNavigator} from "@react-navigation/stack"
 import Main from "../views/Main"
 import ContactView from "../views/ContactView"
 import ContactForm from "../views/ContactForm"
-import {offWhite} from "../styles/colors"
 
 const Stack = createStackNavigator()
 /**
@@ -13,14 +12,6 @@ const Stack = createStackNavigator()
  * @returns {JSX.Element} The Routes component.
  */
 function Routes() {
-    const screenOptions = {
-        headerStyle: {
-            backgroundColor: offWhite,
-        },
-        headerTitleStyle: {
-            fontWeight: "bold",
-        },
-    }
     const stackOptions = {
         headerShown: false,
     }
@@ -28,24 +19,12 @@ function Routes() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Contactor"
+                initialRouteName="Main"
                 screenOptions={stackOptions}
             >
-                <Stack.Screen
-                    name="Contactor"
-                    component={Main}
-                    options={screenOptions}
-                />
-                <Stack.Screen
-                    name="Contact"
-                    component={ContactView}
-                    options={screenOptions}
-                />
-                <Stack.Screen
-                    name="Contact Form"
-                    component={ContactForm}
-                    options={screenOptions}
-                />
+                <Stack.Screen name="Main" component={Main} />
+                <Stack.Screen name="Contact" component={ContactView} />
+                <Stack.Screen name="Contact Form" component={ContactForm} />
             </Stack.Navigator>
         </NavigationContainer>
     )

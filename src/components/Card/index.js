@@ -1,9 +1,7 @@
 import {Text, Pressable, Image, View} from "react-native"
 import React, {useEffect, useState} from "react"
-import {shadows} from "../../styles/shadows"
 import styles from "./styles"
 import {useNavigation} from "@react-navigation/native"
-import ContactView from "../../views/ContactView"
 
 /**
  * @desc Card component
@@ -19,12 +17,6 @@ function Card({info, refresh}) {
     const [cardInfo, setCardInfo] = useState(info)
     const navigation = useNavigation()
     const [imageFound, setImageFound] = useState(true)
-
-    // useEffect(() => {
-    //     if (refresh) {
-    //         // setCardInfo(info)
-    //     }
-    // }, [refresh])
 
     useEffect(() => {
         setCardInfo(info)

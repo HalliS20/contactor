@@ -5,6 +5,7 @@ import {deviceWidth, deviceHeight} from "../../styles/sizes"
 
 export const styles = StyleSheet.create({
     header: {
+        paddingTop: 10,
         alignSelf: "stretch",
         width: deviceWidth,
         flexDirection: "row",
