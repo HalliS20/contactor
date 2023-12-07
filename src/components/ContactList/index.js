@@ -26,14 +26,17 @@ function ContactList({contacts, refresh, setRefresh}) {
     const [isLoading, setIsLoading] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
     const [Focused, setFocus] = useState(false)
+    const [endReached, setEndReached] = useState(false)
+    const [scrollPosition, setScrollPosition] = useState(0)
 
     //////////////// importing contacts ///////////////
     const handleImportContacts = async () => {
-        setIsLoading(true)
+        console.log("Importing contacts")
+        setIsLoading(false)
         await importContacts().then(() => {
             setRefresh(true) // sets refresh to true and triggers full page refresh
+            setIsLoading(false)
         })
-        setIsLoading(false)
     }
 
     /////////////// For refreshing /////////
@@ -81,45 +84,50 @@ function ContactList({contacts, refresh, setRefresh}) {
             </View>
 
             {/* ////////////// Contacts list part ////////////// */}
-            <FlatList
-                style={styles.list}
-                data={contactList.filter((contact) =>
-                    contact.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
-                )}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({item}) => <Card info={item} refresh={refresh} />}
-                ListFooterComponent={() => (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        {/* ////// Displays spinner if loading otherwise import Button /////// */}
-                        {isLoading ? (
-                            <View style={styles.spinner}>
-                                <Spinner />
-                            </View>
-                        ) : (
-                            <Pressable
-                                style={({pressed}) => [
-                                    {opacity: pressed ? 0.5 : 1},
-                                    styles.importButton,
-                                ]}
-                                title="importContacts"
-                                onPress={() => {
-                                    handleImportContacts()
-                                }}
-                            >
-                                <Text>Import Contacts</Text>
-                            </Pressable>
-                        )}
-                    </View>
-                )}
-            />
+            <View style={{paddingBottom: 200}}>
+                <FlatList
+                    contentContainerStyle={{paddingBottom: 200}}
+                    style={styles.list}
+                    data={contactList.filter((contact) =>
+                        contact.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()),
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({item}) => <Card info={item} />}
+                    onScroll={(event) => {
+                        const currentScrollPosition =
+                            event.nativeEvent.contentOffset.y
+                        const totalContentHeight =
+                            event.nativeEvent.contentSize.height
+                        const scrollViewHeight =
+                            event.nativeEvent.layoutMeasurement.height
+
+                        const isEndReached =
+                            currentScrollPosition + scrollViewHeight >=
+                            totalContentHeight - 50
+                        setEndReached(isEndReached)
+                    }}
+                    onEndReachedThreshold={0.1}
+                />
+                <View>
+                    {/* ////// Displays spinner if loading otherwise import Button /////// */}
+                    {endReached && !isLoading && (
+                        <Pressable
+                            style={({pressed}) => [
+                                {opacity: pressed ? 0.5 : 1},
+                                styles.importButton,
+                            ]}
+                            title="importContacts"
+                            onPress={() => {
+                                handleImportContacts()
+                            }}
+                        >
+                            <Text>Import Contacts</Text>
+                        </Pressable>
+                    )}
+                </View>
+            </View>
         </SafeAreaView>
     )
 }

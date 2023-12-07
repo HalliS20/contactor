@@ -20,11 +20,11 @@ function Card({info, refresh}) {
     const navigation = useNavigation()
     const [imageFound, setImageFound] = useState(true)
 
-    useEffect(() => {
-        if (refresh) {
-            // setCardInfo(info)
-        }
-    }, [refresh])
+    // useEffect(() => {
+    //     if (refresh) {
+    //         // setCardInfo(info)
+    //     }
+    // }, [refresh])
 
     useEffect(() => {
         setCardInfo(info)

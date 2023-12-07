@@ -5,12 +5,8 @@ import {shadows} from "../../styles/shadows"
 import {white, black, navajoWhite, offWhite} from "../../styles/colors"
 
 export const styles = StyleSheet.create({
-    innerContainer: {
-        width: 300,
-        height: 100,
-        margin: 10,
-        justifyContent: "center",
-        alignItems: "center",
+    container: {
+        flexGrow: 1,
     },
 
     topTitle: {
@@ -20,7 +16,8 @@ export const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         backgroundColor: offWhite,
-        height: deviceHeight * 0.06,
+        // height: deviceHeight * 0.06,
+        flexGrow: 0.06,
         alignItems: "center",
     },
     title: {
@@ -48,18 +45,21 @@ export const styles = StyleSheet.create({
         width: deviceWidth,
     },
     list: {
-        height: deviceHeight * 0.85,
+        flexGrow: 1,
+        marginBottom: 0,
     },
     importButton: {
         width: deviceWidth,
-        marginBottom: 100,
         backgroundColor: offWhite,
-        height: deviceHeight * 0.05,
+        // height: deviceHeight * 0.05,
+        height: 50,
+        marginTop: -150,
         padding: 10,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 10,
-        ...shadows.smallUnder,
+        borderWidth: 1,
+        borderColor: "black",
+        position: "relative",
     },
     spinner: {marginTop: 100},
 
