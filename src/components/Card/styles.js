@@ -19,7 +19,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignItems: "center",
         marginBottom: 2,
-        ...shadows.smallUnder,
+        borderWidth: 1,
+        borderColor: "blue",
+
+        // ...shadows.smallUnder,
     },
     photo: {
         margin: 5,
