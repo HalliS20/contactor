@@ -10,6 +10,10 @@ const Main = ({navigation: {navigate}, route}) => {
 
     const [contacts, setContacts] = useState([])
     const [refresh, setRefresh] = useState(false)
+    const [shouldFetchContacts, setShouldFetchContacts] = useState(
+        route.params?.shouldFetchContacts || false,
+    )
+    const [firstLoad, setFirstLoad] = useState(true)
 
     const fetchContacts = useCallback(() => {
         ////////// For deletin all data in development //////////
@@ -19,25 +23,27 @@ const Main = ({navigation: {navigate}, route}) => {
             cleanDirectory()
         }
 
+        setShouldFetchContacts(route.params?.shouldFetchContacts || false)
+
         ////////// For adding contacts //////////
-        getAllContacts().then((contacts) => {
-            setContacts(contacts)
-            setRefresh(!refresh) // Reset refresh state after refreshing the list
-        })
-    }, [refresh])
+        if (refresh || shouldFetchContacts || firstLoad) {
+            getAllContacts().then((contacts) => {
+                setContacts(contacts)
+                setRefresh(false) // Reset refresh state after refreshing the list
+                setShouldFetchContacts(false) // Reset shouldFetchContacts state after fetching the contacts
+                setFirstLoad(false)
+            })
+        }
+    }, [refresh, shouldFetchContacts])
 
     useEffect(() => {
         fetchContacts()
-    }, [fetchContacts])
+    }, [])
 
     useFocusEffect(
         useCallback(() => {
-            if (route.params.shouldFetchContacts) {
-                fetchContacts()
-                // Reset the parameter after fetching the contacts
-                route.params.shouldFetchContacts = false
-            }
-        }, [route.params.shouldFetchContacts, fetchContacts]),
+            fetchContacts()
+        }, [fetchContacts]),
     )
 
     return (
