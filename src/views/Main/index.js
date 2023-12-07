@@ -34,7 +34,12 @@ const Main = ({navigation: {navigate}, route}) => {
                 setFirstLoad(false)
             })
         }
-    }, [refresh, shouldFetchContacts])
+    }, [
+        refresh,
+        shouldFetchContacts,
+        firstLoad,
+        route.params?.shouldFetchContacts,
+    ])
 
     useEffect(() => {
         fetchContacts()
