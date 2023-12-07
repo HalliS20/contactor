@@ -25,7 +25,10 @@ function ContactView({route}) {
                     <Text style={styles.backBText}>Back</Text>
                 </Pressable>
                 <Pressable
-                    style={styles.editButton}
+                    style={({pressed}) => [
+                        {opacity: pressed ? 0.5 : 1},
+                        styles.editButton,
+                    ]}
                     onPress={() =>
                         navigation.navigate("Contact Form", {contact})
                     }

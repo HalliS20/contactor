@@ -72,7 +72,10 @@ function ContactForm({route}) {
                 </Pressable>
                 {contact && (
                     <Pressable
-                        style={styles.deleteButton}
+                        style={({pressed}) => [
+                            {opacity: pressed ? 0.5 : 1},
+                            styles.deleteButton,
+                        ]}
                         onPress={() => {
                             removeContact(contact.fileName)
                             navigation.navigate("Main", {
@@ -194,7 +197,10 @@ function ContactForm({route}) {
                 defaultValue={contact && contact.image ? contact.image : ""}
             />
             <Pressable
-                style={styles.submitButton}
+                style={({pressed}) => [
+                    {opacity: pressed ? 0.5 : 1},
+                    styles.submitButton,
+                ]}
                 title="Submit"
                 onPress={handleSubmit(onSubmit)}
             >
