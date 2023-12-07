@@ -112,7 +112,9 @@ function ContactList({contacts, refresh, setRefresh}) {
                 />
                 <View>
                     {/* ////// Displays spinner if loading otherwise import Button /////// */}
-                    {endReached && !isLoading && (
+                    {(contacts === undefined ||
+                        contacts.length === 0 ||
+                        (endReached && !isLoading)) && (
                         <Pressable
                             style={({pressed}) => [
                                 {opacity: pressed ? 0.5 : 1},

@@ -23,14 +23,14 @@ const Main = ({navigation: {navigate}, route}) => {
             cleanDirectory()
         }
 
-        setShouldFetchContacts(route.params?.shouldFetchContacts || false)
+        setShouldFetchContacts(route.params?.shouldFetchContacts || false) //set Fetch state to be correct
 
         ////////// For adding contacts //////////
         if (refresh || shouldFetchContacts || firstLoad) {
             getAllContacts().then((contacts) => {
                 setContacts(contacts)
-                setRefresh(false) // Reset refresh state after refreshing the list
-                setShouldFetchContacts(false) // Reset shouldFetchContacts state after fetching the contacts
+                setRefresh(false) // Reset refresh
+                setShouldFetchContacts(false) // Reset shouldFetc
                 setFirstLoad(false)
             })
         }

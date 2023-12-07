@@ -5,5 +5,6 @@ import {offWhite} from "../../styles/colors"
 export default StyleSheet.create({
     main: {
         backgroundColor: offWhite,
+        flex: 1,
     },
 })
