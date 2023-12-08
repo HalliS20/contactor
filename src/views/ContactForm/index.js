@@ -14,6 +14,10 @@ import * as imageService from "../../services/imageService"
 import styles from "./styles"
 import AddModal from "../../components/AddModal"
 
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Could not find image"]);
+
 /**
  *
  * @returns  {JSX.Element}
@@ -28,23 +32,23 @@ function ContactForm({route}) {
     const [phoneFocused, setPhoneFocus] = useState(false) // name input focus
     const [imageFocused, setImageFocus] = useState(false) // name input focus
 
-    ////////// for taking photo and selecting from camera roll //////////
-    const takePhoto = async () => {
+    /// /////// for taking photo and selecting from camera roll //////////
+    const takePhoto = async() => {
         const photo = await imageService.takePhoto()
         if (photo.length > 0) {
             setPhoto(photo)
             setValue("image", photo)
         }
     }
-    const selectFromCameraRoll = async () => {
+    const selectFromCameraRoll = async() => {
         const photo = await imageService.selectFromCameraRoll()
         if (photo.length > 0) {
             setPhoto(photo)
         }
     }
 
-    //////// submitting form //////////
-    const onSubmit = async (content) => {
+    /// ///// submitting form //////////
+    const onSubmit = async(content) => {
         if (contact) {
             await removeContact(contact.fileName)
         }
@@ -134,7 +138,6 @@ function ContactForm({route}) {
                 control={control}
                 render={({field: {onChange, onBlur, value}}) =>
                     photo ? (
-                        (console.log("Value: ", value),
                         (
                             <View>
                                 <Image
@@ -159,7 +162,7 @@ function ContactForm({route}) {
                                     />
                                 </Pressable>
                             </View>
-                        ))
+                        )
                     ) : (
                         <View>
                             <TextInput

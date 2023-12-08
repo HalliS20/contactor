@@ -3,6 +3,10 @@ import React, {useEffect, useState} from "react"
 import styles from "./styles"
 import {useNavigation} from "@react-navigation/native"
 
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Could not find image"]);
+
 /**
  * @desc Card component
  * @param {object} info - info object

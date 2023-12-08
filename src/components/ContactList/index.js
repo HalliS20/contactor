@@ -31,7 +31,6 @@ function ContactList({contacts, refresh, setRefresh}) {
 
     //////////////// importing contacts ///////////////
     const handleImportContacts = async () => {
-        console.log("Importing contacts")
         setIsLoading(false)
         await importContacts().then(() => {
             setRefresh(true) // sets refresh to true and triggers full page refresh

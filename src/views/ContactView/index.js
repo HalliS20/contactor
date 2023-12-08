@@ -4,6 +4,10 @@ import {useNavigation} from "@react-navigation/native"
 import {deviceWidth} from "../../styles/sizes"
 import styles from "./styles"
 
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Could not find image"]);
+
 function ContactView({route}) {
     const {contact} = route.params
     const navigation = useNavigation()
