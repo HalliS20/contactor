@@ -14,9 +14,9 @@ import * as imageService from "../../services/imageService"
 import styles from "./styles"
 import AddModal from "../../components/AddModal"
 
-import { LogBox } from "react-native";
+import { LogBox } from "react-native"
 
-LogBox.ignoreLogs(["Could not find image"]);
+LogBox.ignoreLogs(["Could not find image"])
 
 /**
  *
@@ -24,7 +24,7 @@ LogBox.ignoreLogs(["Could not find image"]);
  */
 function ContactForm({route}) {
     const navigation = useNavigation()
-    const {control, handleSubmit, setValue} = useForm()
+    const {control, handleSubmit, setValue, formState: { errors }, setError, clearErrors } = useForm()
     const [photo, setPhoto] = useState("")
     const contact = route.params ? route.params.contact : undefined
     const [isAddModalOpen, setIsAddModalOpen] = useState(false) // modal open/close
@@ -49,17 +49,29 @@ function ContactForm({route}) {
 
     /// ///// submitting form //////////
     const onSubmit = async(content) => {
-        if (contact) {
-            await removeContact(contact.fileName)
-        }
-        if (photo.length > 0) {
-            content.image = photo
-        }
-        addContact(content).then(() => {
-            navigation.navigate("Main", {
-                shouldFetchContacts: true,
+        console.log("name", content.name)
+        if (!content.name && !content.phone) {
+            setError("empty", {
+                type: "manual",
+                message: "Either name or phone must be provided",
             })
-        })
+        } else {
+            clearErrors("empty")
+            if (contact) {
+                await removeContact(contact.fileName)
+            }
+            if (photo.length > 0) {
+                content.image = photo
+            }
+            if (!content.name) {
+                content.name = content.phone
+            }
+            addContact(content).then(() => {
+                navigation.navigate("Main", {
+                    shouldFetchContacts: true,
+                })
+            })
+        }
     }
 
     return (
@@ -102,7 +114,12 @@ function ContactForm({route}) {
                             setNameFocus(false)
                         }}
                         onFocus={() => setNameFocus(true)}
-                        onChangeText={(value) => onChange(value)}
+                        onChangeText={(value) => {
+                            onChange(value)
+                            if (value) {
+                                clearErrors("empty")
+                            }
+                        }}
                         value={value}
                         placeholder={
                             contact && contact.name ? contact.name : "Name"
@@ -124,11 +141,17 @@ function ContactForm({route}) {
                             setPhoneFocus(false)
                         }}
                         onFocus={() => setPhoneFocus(true)}
-                        onChangeText={(value) => onChange(value)}
+                        onChangeText={(value) => {
+                            onChange(value)
+                            if (value) {
+                                clearErrors("empty")
+                            }
+                        }}
                         value={value}
                         placeholder={
                             contact && contact.phone ? contact.phone : "phone"
                         }
+                        keyboardType="numeric"
                     />
                 )}
                 name="phone"
@@ -199,6 +222,7 @@ function ContactForm({route}) {
                 name="image"
                 defaultValue={contact && contact.image ? contact.image : ""}
             />
+            {errors.empty && <Text style={styles.errorText}>{errors.empty.message}</Text>}
             <Pressable
                 style={({pressed}) => [
                     {opacity: pressed ? 0.5 : 1},

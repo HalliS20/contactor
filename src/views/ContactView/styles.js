@@ -1,6 +1,5 @@
 import {StyleSheet} from "react-native"
 import {offWhite} from "../../styles/colors"
-import {buttonStyle} from "../../styles/buttons"
 import {deviceWidth, deviceHeight} from "../../styles/sizes"
 
 export const styles = StyleSheet.create({

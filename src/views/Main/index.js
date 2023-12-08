@@ -23,7 +23,7 @@ const Main = ({navigation: {navigate}, route}) => {
             cleanDirectory()
         }
 
-        setShouldFetchContacts(route.params?.shouldFetchContacts || false) //set Fetch state to be correct
+        setShouldFetchContacts(route.params?.shouldFetchContacts || false) /// set Fetch state to be correct
 
         ////////// For adding contacts //////////
         if (refresh || shouldFetchContacts || firstLoad) {

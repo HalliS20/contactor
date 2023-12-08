@@ -29,5 +29,6 @@ module.exports = {
         "react/prop-types": ["off"],
         "space-before-function-paren": ["error", "never"],
         "valid-jsdoc": "off",
+        "semi": ["error", "never"],
     },
 }
