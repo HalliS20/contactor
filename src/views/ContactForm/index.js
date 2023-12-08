@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {Controller, useForm} from "react-hook-form"
 import {
     View,
@@ -32,6 +32,11 @@ function ContactForm({route}) {
     const [phoneFocused, setPhoneFocus] = useState(false) // name input focus
     const [imageFocused, setImageFocus] = useState(false) // name input focus
 
+    useEffect(() => {
+        if (contact) {
+            setPhoto(contact.image)
+        }
+    }, [contact])
     /// /////// for taking photo and selecting from camera roll //////////
     const takePhoto = async() => {
         const photo = await imageService.takePhoto()
