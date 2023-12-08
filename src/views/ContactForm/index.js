@@ -186,7 +186,7 @@ function ContactForm({route}) {
                                 >
                                     <Image
                                         source={require("../../resources/images/x.jpg")}
-                                        style={{width: 20, height: 20}}
+                                        style={styles.x}
                                     />
                                 </Pressable>
                             </View>

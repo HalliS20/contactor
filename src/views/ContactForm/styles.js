@@ -115,4 +115,10 @@ export default styles = StyleSheet.create({
         color: "red",
         marginBottom: 10,
     },
+    x: {
+        width: 20, 
+        height: 20, 
+        marginRight: 10, 
+        marginTop: 10,
+    },
 })
