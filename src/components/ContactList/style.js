@@ -1,7 +1,5 @@
 import {StyleSheet} from "react-native"
-import {buttonStyle} from "../../styles/buttons"
 import {deviceWidth, deviceHeight} from "../../styles/sizes"
-import {shadows} from "../../styles/shadows"
 import {white, black, navajoWhite, offWhite} from "../../styles/colors"
 
 export const styles = StyleSheet.create({

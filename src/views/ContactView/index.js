@@ -4,10 +4,9 @@ import {useNavigation} from "@react-navigation/native"
 import {deviceWidth} from "../../styles/sizes"
 import styles from "./styles"
 
-import { LogBox } from "react-native"
+import {LogBox} from "react-native"
 
 LogBox.ignoreLogs(["Could not find image"])
-
 
 /**
  * @desc This is the contact view component
