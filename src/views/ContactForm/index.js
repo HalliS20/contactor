@@ -14,7 +14,7 @@ import * as imageService from "../../services/imageService"
 import styles from "./styles"
 import AddModal from "../../components/AddModal"
 
-import { LogBox } from "react-native"
+import {LogBox} from "react-native"
 
 LogBox.ignoreLogs(["Could not find image"])
 
@@ -24,7 +24,14 @@ LogBox.ignoreLogs(["Could not find image"])
  */
 function ContactForm({route}) {
     const navigation = useNavigation()
-    const {control, handleSubmit, setValue, formState: { errors }, setError, clearErrors } = useForm()
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        formState: {errors},
+        setError,
+        clearErrors,
+    } = useForm()
     const [photo, setPhoto] = useState("")
     const contact = route.params ? route.params.contact : undefined
     const [isAddModalOpen, setIsAddModalOpen] = useState(false) // modal open/close
@@ -38,14 +45,14 @@ function ContactForm({route}) {
         }
     }, [contact])
     /// /////// for taking photo and selecting from camera roll //////////
-    const takePhoto = async() => {
+    const takePhoto = async () => {
         const photo = await imageService.takePhoto()
         if (photo.length > 0) {
             setPhoto(photo)
             setValue("image", photo)
         }
     }
-    const selectFromCameraRoll = async() => {
+    const selectFromCameraRoll = async () => {
         const photo = await imageService.selectFromCameraRoll()
         if (photo.length > 0) {
             setPhoto(photo)
@@ -53,7 +60,7 @@ function ContactForm({route}) {
     }
 
     /// ///// submitting form //////////
-    const onSubmit = async(content) => {
+    const onSubmit = async (content) => {
         console.log("name", content.name)
         if (!content.name && !content.phone) {
             setError("empty", {
@@ -166,31 +173,26 @@ function ContactForm({route}) {
                 control={control}
                 render={({field: {onChange, onBlur, value}}) =>
                     photo ? (
-                        (
-                            <View>
+                        <View>
+                            <Image
+                                source={{uri: photo}}
+                                style={styles.photo}
+                                defaultSource={require("../../resources/default-avatar.png")}
+                                resizeMode="cover"
+                            />
+                            <Pressable
+                                style={styles.ex}
+                                onPress={() => {
+                                    setPhoto("")
+                                    onChange("") // Clear the value of the form field "image"
+                                }}
+                            >
                                 <Image
-                                    source={{uri: photo}}
-                                    style={styles.photo}
-                                    resizeMode="cover"
+                                    source={require("../../resources/images/x.jpg")}
+                                    style={styles.x}
                                 />
-                                <Pressable
-                                    style={{
-                                        position: "absolute",
-                                        right: 0,
-                                        top: 0,
-                                    }}
-                                    onPress={() => {
-                                        setPhoto("")
-                                        onChange("") // Clear the value of the form field "image"
-                                    }}
-                                >
-                                    <Image
-                                        source={require("../../resources/images/x.jpg")}
-                                        style={styles.x}
-                                    />
-                                </Pressable>
-                            </View>
-                        )
+                            </Pressable>
+                        </View>
                     ) : (
                         <View>
                             <TextInput
@@ -227,7 +229,9 @@ function ContactForm({route}) {
                 name="image"
                 defaultValue={contact && contact.image ? contact.image : ""}
             />
-            {errors.empty && <Text style={styles.errorText}>{errors.empty.message}</Text>}
+            {errors.empty && (
+                <Text style={styles.errorText}>{errors.empty.message}</Text>
+            )}
             <Pressable
                 style={({pressed}) => [
                     {opacity: pressed ? 0.5 : 1},

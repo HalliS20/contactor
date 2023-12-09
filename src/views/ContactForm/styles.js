@@ -116,9 +116,15 @@ export default styles = StyleSheet.create({
         marginBottom: 10,
     },
     x: {
-        width: 20, 
-        height: 20, 
-        marginRight: 10, 
+        width: 20,
+        height: 20,
+        marginRight: 10,
         marginTop: 10,
+    },
+
+    ex: {
+        position: "absolute",
+        right: 0,
+        top: 0,
     },
 })
